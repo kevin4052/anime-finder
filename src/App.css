@@ -1,5 +1,14 @@
 .App {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   text-align: center;
+}
+
+.anime-card {
+  height: 420px;
+  width: 320px;
+  margin: 1rem;
 }
 
 .App-logo {

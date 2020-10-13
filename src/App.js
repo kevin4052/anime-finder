@@ -1,41 +1,37 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 const axios = require('axios');
 
 class App extends Component {
   state = {
-    anime: {}
+    topAnime: []
   }
 
   componentDidMount = () => {
     const urlBase = 'https://api.jikan.moe/v3/';
     axios
-      .get(`${urlBase}anime/1`)
+      .get(`${urlBase}top/anime`)
       .then(async response => {
-
-        console.log(response.data);
-
+        // console.log(response.data.top.title);
         await this.setState({
-          anime: response.data
+          topAnime: response.data.top
         });
-
-        console.log(this.state.anime.genres)
-
+        // console.log(this.state.anime);
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
   }
 
   render() {
     return (
       <div className="App">
-        <h1>{this.state.anime.title}</h1>
-        <p>{this.state.anime.synopsis}</p>
-        <ul>
           {
-            this.state.anime.genres?.map((genre) => <li key={genre.mal_id}>{genre.name}</li> )
+            this.state.topAnime?.map((anime) => 
+              <div key={anime.mal_id} className="anime-card">
+                <img src={anime.image_url} alt={anime.title} />
+                <h3>{anime.title}</h3>
+              </div>
+            )
           }
-        </ul>
       </div>
     );
   }
