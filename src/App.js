@@ -1,37 +1,23 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Home from './components/Home';
 import './App.css';
-const axios = require('axios');
+// const axios = require('axios');
 
 class App extends Component {
-  state = {
-    topAnime: []
-  }
+  state = {}
 
-  componentDidMount = () => {
-    const urlBase = 'https://api.jikan.moe/v3/';
-    axios
-      .get(`${urlBase}top/anime`)
-      .then(async response => {
-        // console.log(response.data.top.title);
-        await this.setState({
-          topAnime: response.data.top
-        });
-        // console.log(this.state.anime);
-      })
-      .catch(err => console.log(err));
-  }
+  componentDidMount = () => {}
 
   render() {
     return (
       <div className="App">
-          {
-            this.state.topAnime?.map((anime) => 
-              <div key={anime.mal_id} className="anime-card">
-                <img src={anime.image_url} alt={anime.title} />
-                <h3>{anime.title}</h3>
-              </div>
-            )
-          }
+        <Navbar />
+
+        <Switch>
+          <Route exact path='/' component={Home} />
+        </Switch>
       </div>
     );
   }
