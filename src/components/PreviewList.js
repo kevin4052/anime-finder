@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AxiosService from './services/AxiosService';
+import { Link } from 'react-router-dom';
 
 export default class PreviewList extends Component {
     constructor(props) {
@@ -80,7 +81,10 @@ export default class PreviewList extends Component {
                 <h3>{this.props.genre}</h3>
                 <ul>
                     {
-                        this.state.list?.map(anime => <li key={anime.mal_id}>{anime.title}</li>)
+                        this.state.list?.map(anime => 
+                            <li key={anime.mal_id}>
+                                <Link to={`/anime/${anime.mal_id}`}>{anime.title}</Link>
+                            </li>)
                     }
                 </ul>
             </div>

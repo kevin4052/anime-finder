@@ -25,6 +25,7 @@ export default class DetailsPage extends Component {
         return (
             <div>
                 <h3>{this.state.anime?.title}</h3>
+                <img src={this.state.anime?.image_url} alt="" />
             </div>
         )
     }
