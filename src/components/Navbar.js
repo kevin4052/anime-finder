@@ -50,7 +50,13 @@ export default class Navbar extends Component {
                 </div>
                 <div className='nav-links'>
                     <label>
-                        <input type='text' placeholder='search' value={this.search} onChange={this.handleChange}/>
+                        <input type='text' placeholder='search' list="auto-complete" value={this.search} onChange={this.handleChange}/>
+                        <datalist id="auto-complete">
+                            {/* <option value="homer@simpson.com"/>
+                            <option value="barney@rubble.ws"/>
+                            <option value="fred@flinstone.cc"/>
+                            <option value="peter@griffin.org"/> */}
+                        </datalist>
                     </label>
                     <div>
                         <ul>

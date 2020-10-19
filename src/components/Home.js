@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import GenreList from './GenreList';
 const axios = require('axios');
 
 class Home extends Component {
@@ -21,6 +22,9 @@ class Home extends Component {
   render() {
     return (
       <div className="container">
+        <GenreList genre="Action" />
+        <GenreList genre="Shounen" />
+        <GenreList genre="Fantasy" />
           {
             this.state.topAnime?.map((anime) => 
               <div key={anime.mal_id} className="anime-card">
