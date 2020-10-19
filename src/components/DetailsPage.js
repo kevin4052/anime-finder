@@ -24,8 +24,13 @@ export default class DetailsPage extends Component {
     render() {
         return (
             <div>
-                <h3>{this.state.anime?.title}</h3>
-                <img src={this.state.anime?.image_url} alt="" />
+                {
+                    this.state.anime && 
+                        <>
+                            <h3>{this.state.anime.title_english}</h3>
+                            <img src={this.state.anime.image_url} alt="" />
+                        </>
+                }
             </div>
         )
     }

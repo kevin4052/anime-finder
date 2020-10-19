@@ -26,20 +26,11 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container is-dark">
         <PreviewList type='top'/>
         <PreviewList type='genre' genre="Shounen" />
         <PreviewList type='genre' genre="Fantasy" />
-        {
-          this.state.topAnime?.map((anime) => 
-            <div key={anime.mal_id} className="anime-card">
-              <Link to={`/anime/${anime.mal_id}`}>
-                <img src={anime.image_url} alt={anime.title} />
-                <h3>{anime.title}</h3>
-              </Link>
-            </div>
-          )
-        }
+        <PreviewList type='genre' genre="Psychological" />
       </div>
     );
   }

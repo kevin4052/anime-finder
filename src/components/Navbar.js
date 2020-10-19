@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import AxiosService from './services/AxiosService';
+import 'bulma/css/bulma.css';
 
 export default class Navbar extends Component {
     constructor() {
@@ -42,7 +43,7 @@ export default class Navbar extends Component {
 
     render() {
         return (
-            <nav className="navbar">
+            <nav className="navbar is-dark">
                 <div className="nav-logo">
                     <Link to='/' >
                         <img className="app-logo" src='./images/animeFinderLogo.png' alt='site-logo' />
@@ -50,7 +51,7 @@ export default class Navbar extends Component {
                 </div>
                 <div className='nav-links'>
                     <label>
-                        <input type='text' placeholder='search' list="auto-complete" size="30" value={this.search} onChange={this.handleChange}/>
+                        <input className="input is-rounded" type='text' placeholder='search' list="auto-complete" size="30" value={this.search} onChange={this.handleChange}/>
                     </label>
                     <div>
                         <ul>

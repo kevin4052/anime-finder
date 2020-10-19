@@ -1,7 +1,7 @@
-body {
+body, html {
   margin: 0 5vw;
   padding: 0;
-  background: #141414;
+  background-color: #363636;
   color: #fff;
   font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
 }
@@ -67,4 +67,22 @@ a {
   to {
     transform: rotate(360deg);
   }
+}
+
+.preview-box {
+  display: flex;
+  margin: 2rem;
+}
+
+.card {
+  width: 300px;
+  margin: 0 0.5rem;
+}
+
+.card-content {
+  height: 100%;
+}
+
+.card-content .media {
+  margin: auto;
 }

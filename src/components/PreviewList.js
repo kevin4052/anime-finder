@@ -66,7 +66,7 @@ export default class PreviewList extends Component {
                 .getTopRated()
                 .then(response => {
                     this.setState({
-                        list: response
+                        list: response.slice(0, 10)
                     })
                 })
                 .catch(err => console.log({ err }));
@@ -77,16 +77,28 @@ export default class PreviewList extends Component {
 
     render() {
         return (
-            <div>
+            <div className="preview-box">
                 <h3>{this.props.genre}</h3>
-                <ul>
-                    {
-                        this.state.list?.map(anime => 
-                            <li key={anime.mal_id}>
-                                <Link to={`/anime/${anime.mal_id}`}>{anime.title}</Link>
-                            </li>)
-                    }
-                </ul>
+                {
+                    this.state.list?.map(anime => 
+                        <div key={anime.mal_id} className="card">
+                            <Link to={`/anime/${anime.mal_id}`}>
+                                <div className="card-image">
+                                    <figure className="image is-2by3">
+                                        <img src={anime.image_url} alt="Placeholder"/>
+                                    </figure>
+                                </div>
+                                <div className="card-content">
+                                    <div className="media">
+                                        <div className="media-content">
+                                            <p className="title is-4">{anime.title}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+                    )
+                }
             </div>
         )
     }
