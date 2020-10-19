@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import AxiosService from './services/AxiosService';
 
 export default class Navbar extends Component {
     constructor() {
@@ -9,6 +9,7 @@ export default class Navbar extends Component {
             search: "",
             searchMatches: null
         }
+        this.axiosService = new AxiosService();
 
     }
 
@@ -21,18 +22,16 @@ export default class Navbar extends Component {
         this.getSearchResults();
     }
 
-    getSearchResults = () => {
-        const urlBase = 'https://api.jikan.moe/v3';
-        
+    getSearchResults = () => {        
         if (this.state.search.length >= 3) {
-            axios
-            .get(`${urlBase}/search/anime?q=${this.state.search}`)
-            .then(response => {
-                this.setState({
-                searchMatches: response.data.results.map(anime => anime.title).slice(0, 5)
-                });
-            })
-            .catch(err => console.log(err));
+            this.axiosService
+                .getSearchResults(this.state.search)
+                .then(response => {
+                    this.setState({
+                        searchMatches: response.map(anime => anime.title).slice(0, 5)
+                    })
+                })
+                .catch(err => console.log({ err }));
         } else {
             this.setState({
                 searchMatches: null
@@ -45,18 +44,13 @@ export default class Navbar extends Component {
         return (
             <nav className="navbar">
                 <div className="nav-logo">
-                    <img className="app-logo" src='./images/animeFinderLogo.png' alt='site-logo' />
-                    <Link to='/' >Home</Link>
+                    <Link to='/' >
+                        <img className="app-logo" src='./images/animeFinderLogo.png' alt='site-logo' />
+                    </Link>
                 </div>
                 <div className='nav-links'>
                     <label>
-                        <input type='text' placeholder='search' list="auto-complete" value={this.search} onChange={this.handleChange}/>
-                        <datalist id="auto-complete">
-                            {/* <option value="homer@simpson.com"/>
-                            <option value="barney@rubble.ws"/>
-                            <option value="fred@flinstone.cc"/>
-                            <option value="peter@griffin.org"/> */}
-                        </datalist>
+                        <input type='text' placeholder='search' list="auto-complete" size="30" value={this.search} onChange={this.handleChange}/>
                     </label>
                     <div>
                         <ul>

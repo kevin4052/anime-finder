@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import AxiosService from './services/AxiosService';
 
-export default class GenreList extends Component {
+export default class PreviewList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            genreList: null
+            list: null
         }
 
         this.genre = {
@@ -42,21 +42,35 @@ export default class GenreList extends Component {
             Psychological: 40,
             Thriller: 41,
         }
-        
 
+        this.axiosService = new AxiosService();
     }
 
     componentDidMount = () => {
-        const urlBase = 'https://api.jikan.moe/v3';
-        axios
-          .get(`${urlBase}/genre/anime/${this.genre[this.props.genre]}/1`)
-          .then(async response => {
-            await this.setState({
-              genreList: response.data.anime.slice(0, 10)
-            });
-            console.log(this.state.genreList)
-          })
-          .catch(err => console.log(err));
+        if (this.props.type === "genre") {
+
+            const genreId = this.genre[this.props.genre];
+            this.axiosService
+                .getGenreList(genreId)
+                .then(response => {
+                    this.setState({
+                        list: response
+                    });
+                })
+                .catch(err => console.log({ err }));
+
+        } else if (this.props.type === "top") {
+
+            this.axiosService
+                .getTopRated()
+                .then(response => {
+                    this.setState({
+                        list: response
+                    })
+                })
+                .catch(err => console.log({ err }));
+
+        }
     }
 
 
@@ -66,7 +80,7 @@ export default class GenreList extends Component {
                 <h3>{this.props.genre}</h3>
                 <ul>
                     {
-                        this.state.genreList?.map(anime => <li key={anime.mal_id}>{anime.title}</li>)
+                        this.state.list?.map(anime => <li key={anime.mal_id}>{anime.title}</li>)
                     }
                 </ul>
             </div>
