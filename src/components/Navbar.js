@@ -49,6 +49,8 @@ export default class Navbar extends Component {
                     <Link to='/' >
                         <img className="app-logo" src='./images/animeFinderLogo.png' alt='site-logo' />
                     </Link>
+                    <Link to='/'>Home</Link>
+                    <Link to='/search'>Search</Link>
                 </div>
                 <div className='nav-search'>
                     <label>
