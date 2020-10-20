@@ -1,36 +1,26 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import PreviewList from './PreviewList';
 import AxiosService from './services/AxiosService';
 
 class Home extends Component {
   constructor() {
     super();
-    this.state = {
-      topAnime: []
-    };
+    this.state = {};
     this.axiosService = new AxiosService();
   }
 
-  componentDidMount = () => {
-    this.axiosService
-      .getTopRated()
-      .then(response => {
-        this.setState({
-          topAnime: response
-        })
-      })
-      .catch(err => console.log({ err }));
-
-  }
+  componentDidMount = () => {}
 
   render() {
     return (
       <div className="container is-dark">
-        <PreviewList type='top'/>
-        <PreviewList type='genre' genre="Shounen" />
-        <PreviewList type='genre' genre="Fantasy" />
-        <PreviewList type='genre' genre="Psychological" />
+        <PreviewList genreList={this.props.genreList} type='top'/>
+        <PreviewList genreList={this.props.genreList} type='genre' genre="Shounen" />
+        <PreviewList genreList={this.props.genreList} type='genre' genre="Fantasy" />
+        <PreviewList genreList={this.props.genreList} type='genre' genre="Psychological" />
+        <PreviewList genreList={this.props.genreList} type='genre' genre="Slice-Of-Life" />
+        <PreviewList genreList={this.props.genreList} type='genre' genre="Parody" />
       </div>
     );
   }

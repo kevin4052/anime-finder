@@ -29,10 +29,11 @@ export default class Navbar extends Component {
                 .getSearchResults(this.state.search)
                 .then(response => {
                     this.setState({
-                        searchMatches: response.map(anime => anime.title).slice(0, 5)
+                        searchMatches: response.map(anime => anime.title)
                     })
                 })
                 .catch(err => console.log({ err }));
+
         } else {
             this.setState({
                 searchMatches: null

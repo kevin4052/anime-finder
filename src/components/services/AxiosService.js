@@ -29,6 +29,5 @@ export default class AxiosService {
         return this.apiService
             .get(`/search/anime?q=${searchInput}`)
             .then(response => response.data.results);
-
     }
 }

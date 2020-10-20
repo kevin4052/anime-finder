@@ -1,6 +1,6 @@
 body, html {
-  margin: 0 5vw;
-  padding: 0;
+  margin: 0;
+  padding-top: 2vw;
   background-color: #363636;
   color: #fff;
   font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
@@ -13,19 +13,25 @@ a {
 
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  flex-wrap: wrap;
-  text-align: center;
 }
 
 .navbar {
+  position: fixed;
+  top: 0;
+  height: 5vw;
+  width: 88vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 0 5.7vw;
 }
 
 .app-logo {
-  width: 16vw;
+  /* width: 16vw; */
+  min-width: 200px;
+  max-width: 300px;
 }
 
 .anime-card {
@@ -34,49 +40,15 @@ a {
   margin: 1rem;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .preview-box {
   display: flex;
+  flex-direction: column;
   margin: 2rem;
 }
 
 .card {
-  width: 300px;
-  margin: 0 0.5rem;
+  width: 170px;
+  margin: 0 0.25rem;
 }
 
 .card-content {
@@ -85,4 +57,33 @@ a {
 
 .card-content .media {
   margin: auto;
+}
+
+.title.is-4 {
+  font-size: 1rem;
+}
+
+.row-title {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.row-title h2 {
+  font-size: 1.5rem;
+}
+
+.row-container {
+  display: flex;
+}
+
+.detals-box {
+  margin: 1vw 5vw;
+}
+
+.details-img {
+  float: left;
+}
+
+.details-content {
+  padding-left: 18rem;
 }
