@@ -24,7 +24,7 @@ export default class DetailsPage extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="details-container">
                 {
                     this.state.anime && 
                         <div className="details-box">
@@ -32,7 +32,7 @@ export default class DetailsPage extends Component {
                                 <img src={this.state.anime.image_url} alt="" />
                             </div>
                             <div className="details-content">
-                                <h3>{this.state.anime.title_english}</h3>
+                                <h3>{this.state.anime.title_english || this.state.anime.title}</h3>
                                 <div>
                                     {
                                         this.state.anime.genres?.map(genre => // genre btns need link to genre page

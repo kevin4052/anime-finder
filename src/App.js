@@ -3,8 +3,8 @@ import { Switch, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import DetailsPage from './components/DetailsPage';
+import SearchPage from './components/SearchPage';
 import './App.css';
-// const axios = require('axios');
 
 class App extends Component {
   constructor() {
@@ -61,6 +61,10 @@ class App extends Component {
             exact 
             path='/' 
             render={(props) => <Home {...props} genreList={this.genre} />} />
+          <Route 
+            exact 
+            path='/search' 
+            render={(props) => <SearchPage {...props} genreList={this.genre} />} />
           <Route 
             exact 
             path='/anime/:id' 

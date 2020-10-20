@@ -4,8 +4,8 @@ import PreviewList from './PreviewList';
 import AxiosService from './services/AxiosService';
 
 class Home extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {};
     this.axiosService = new AxiosService();
   }
@@ -14,13 +14,14 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="container is-dark">
+      <div className="home-container is-dark">
         <PreviewList genreList={this.props.genreList} type='top'/>
+        <PreviewList genreList={this.props.genreList} type='genre' genre="Parody" />
         <PreviewList genreList={this.props.genreList} type='genre' genre="Shounen" />
         <PreviewList genreList={this.props.genreList} type='genre' genre="Fantasy" />
         <PreviewList genreList={this.props.genreList} type='genre' genre="Psychological" />
         <PreviewList genreList={this.props.genreList} type='genre' genre="Slice-Of-Life" />
-        <PreviewList genreList={this.props.genreList} type='genre' genre="Parody" />
+        <PreviewList genreList={this.props.genreList} type='genre' genre="Romance" />
       </div>
     );
   }

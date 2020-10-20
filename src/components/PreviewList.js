@@ -8,14 +8,12 @@ export default class PreviewList extends Component {
         this.state = {
             list: null
         }
-
         this.axiosService = new AxiosService();
     }
 
     componentDidMount = () => {
         if (this.props.type === "genre") {
-            const genreId = this.props.genreList[this.props.genre];
-            
+            const genreId = this.props.genreList[this.props.genre];            
             this.axiosService
                 .getGenreList(genreId)
                 .then(response => {
@@ -24,9 +22,7 @@ export default class PreviewList extends Component {
                     });
                 })
                 .catch(err => console.log({ err }));
-
         } else if (this.props.type === "top") {
-
             this.axiosService
                 .getTopRated()
                 .then(response => {
@@ -35,10 +31,8 @@ export default class PreviewList extends Component {
                     })
                 })
                 .catch(err => console.log({ err }));
-
         }
     }
-
 
     render() {
         return (
@@ -53,16 +47,9 @@ export default class PreviewList extends Component {
                                 <Link to={`/anime/${anime.mal_id}`}>
                                     <div className="card-image">
                                         <figure className="image is-2by3">
-                                            <img src={anime.image_url} alt="Placeholder"/>
+                                            <img src={anime.image_url} alt={anime.title}/>
                                         </figure>
                                     </div>
-                                    {/* <div className="card-content">
-                                        <div className="media">
-                                            <div className="media-content">
-                                                <p className="title is-4">{anime.title}</p>
-                                            </div>
-                                        </div>
-                                    </div> */}
                                 </Link>
                             </div>
                         )

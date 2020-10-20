@@ -50,7 +50,7 @@ export default class Navbar extends Component {
                         <img className="app-logo" src='./images/animeFinderLogo.png' alt='site-logo' />
                     </Link>
                 </div>
-                <div className='nav-links'>
+                <div className='nav-search'>
                     <label>
                         <input className="input is-rounded" type='text' placeholder='search' list="auto-complete" size="30" value={this.search} onChange={this.handleChange}/>
                     </label>

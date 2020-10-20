@@ -17,21 +17,34 @@ a {
   justify-content: center;
 }
 
+.home-container {
+  width: 90vw;
+  margin: 0 auto;
+}
+
+.details-container {
+  padding-top: 3vw;
+  width: 70vw;
+  margin: 0 auto;
+}
+
 .navbar {
   position: fixed;
   top: 0;
-  height: 5vw;
-  width: 88vw;
-  display: flex;
+  width: 100%;
+  border-bottom: 1px solid white;
   justify-content: space-between;
   align-items: center;
-  margin: 0 5.7vw;
 }
 
 .app-logo {
-  /* width: 16vw; */
+  margin: 1rem 0 1rem 5vw;
   min-width: 200px;
   max-width: 300px;
+}
+
+.nav-search {
+  margin-right: 5vw;
 }
 
 .anime-card {
@@ -49,8 +62,13 @@ a {
 .card {
   width: 170px;
   margin: 0 0.25rem;
+  transition: all .3s ease-in-out;
 }
 
+.card:hover {
+  transform: scale(1.2);
+  z-index: 1;
+}
 .card-content {
   height: 100%;
 }
@@ -76,7 +94,7 @@ a {
   display: flex;
 }
 
-.detals-box {
+.details-box {
   margin: 1vw 5vw;
 }
 
@@ -86,4 +104,24 @@ a {
 
 .details-content {
   padding-left: 18rem;
+}
+
+#search-container {
+  display: flex;
+}
+
+#filter-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid white;
+  padding: 10px;
+}
+
+#filter-container button {
+  width: 100px;
+}
+
+#search-result-container {
+  flex: 7;
 }
