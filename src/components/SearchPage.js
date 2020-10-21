@@ -8,7 +8,8 @@ export default class SearchPage extends Component {
         super(props);
         this.state = {
             animeCacheList: null,
-            filteredList: null,
+            genreCacheList: [],
+            filteredAnimeList: null,
             selectedGenres: []
         }
         this.axiosService = new AxiosService();
@@ -26,7 +27,7 @@ export default class SearchPage extends Component {
                     // await this.setState((preState) => ({
                     //     animeCacheList: preState.animeCacheList ? preState.animeCacheList.concat(response).slice(0, 50) : response
                     // }));
-                    await this.setState((preState) => ({
+                    await this.setState(() => ({
                         animeCacheList: response
                     }));
                 })
@@ -34,7 +35,7 @@ export default class SearchPage extends Component {
     }
 
     handleBtnClick = (event) => {
-        const className= event.target.className;
+        // const className= event.target.className;
         const innerText = event.target.parentElement.innerText;
 
         // console.log("parent>>>", event.target.parentElement.innerText);
@@ -71,12 +72,6 @@ export default class SearchPage extends Component {
                     <div id="filter-container">
                         <h2>Search Page</h2>
                         <div className="control genre-btns">
-                            {/* {
-                                Object.keys(this.props.genreList)?.map(genreName =>
-                                    <button className='button is-small' key={genreName} onClick={this.handleBtnClick}>{genreName}</button>    
-                                )
-                            } */}
-
                             {
                                 Object.keys(this.props.genreList)?.map(genreName =>
                                     <label key={genreName} className="radio">

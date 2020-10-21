@@ -35,7 +35,8 @@ a {
 
 .navbar {
   /* position: fixed; */
-  /* top: 0; */
+  position: sticky;
+  top: 0;
   width: 100%;
   border-bottom: 1px solid white;
   justify-content: space-between;
@@ -152,4 +153,30 @@ a {
 
 #search-result-container .card {
   margin: 1.5rem 0.5rem;
+}
+
+.radio:hover {
+  color: white;
+}
+
+.search-input {
+  position: relative;
+}
+
+.input-results {
+  position: absolute;
+  right: 0;
+  left: 0;
+  background-color: white;
+}
+.input-results li {
+  border-bottom: 1px solid black;
+}
+
+.input-results li:hover {
+  background-color: rgb(3, 109, 196);
+}
+
+.input-results li a {
+  color: black;
 }
