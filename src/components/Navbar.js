@@ -16,6 +16,7 @@ export default class Navbar extends Component {
     }
 
     handleChange = async (event) => {
+        console.log(event.target);
         const { value } = event.target;
         await this.setState({
             search: value
@@ -32,7 +33,8 @@ export default class Navbar extends Component {
                         searchMatches: response.slice(0, 5).map(ele => {
                             return {
                                 mal_id: ele.mal_id,
-                                title: ele.title
+                                title: ele.title,
+                                image_url: ele.image_url
                             }
                         })
                     })
@@ -62,8 +64,11 @@ export default class Navbar extends Component {
                     <Link to='/' >
                         <img className="app-logo" src='./images/animeFinderLogo.png' alt='site-logo' />
                     </Link>
-                    <Link to='/'>Home</Link>
-                    <Link to='/search'>Search</Link>
+                    <div className='nav-links'>
+                        <Link to='/'>Home</Link>
+                        <Link to='/search'>Search</Link>
+                        <Link to='/my-list'>My List</Link>
+                    </div>
                 </div>
                 <div className='nav-search'>
                     <div className='field search-input'>
@@ -72,9 +77,9 @@ export default class Navbar extends Component {
                                 className="input" 
                                 type='text' 
                                 placeholder='search' 
-                                list="auto-complete" 
+                                list="auto-complete"
                                 size="30" 
-                                value={this.search} 
+                                value={this.state.search} 
                                 onChange={this.handleChange}/>
                             <span className="icon is-small is-left">
                                 <FontAwesomeIcon icon={faSearch} />

@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import DetailsPage from './components/DetailsPage';
 import SearchPage from './components/SearchPage';
+import MyList from './components/MyList';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './App.css';
 
@@ -12,7 +13,8 @@ class App extends Component {
     super();
     this.state = {
       userList: null,
-      searchResults: null
+      searchResults: null,
+      userList: null
     }
     this.genre = {
       Action: 1,
@@ -72,7 +74,12 @@ class App extends Component {
             exact 
             path='/anime/:id' 
             render={(props) => <DetailsPage {...props} />} />
+          <Route 
+            exact 
+            path='/my-list' 
+            render={(props) => <MyList {...props} userList={this.state.userList}/> }/>
         </Switch>
+        
       </div>
     );
   }
