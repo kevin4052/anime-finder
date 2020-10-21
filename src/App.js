@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import DetailsPage from './components/DetailsPage';
 import SearchPage from './components/SearchPage';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './App.css';
 
 class App extends Component {
@@ -16,14 +17,11 @@ class App extends Component {
     this.genre = {
       Action: 1,
       Adventure: 2,
-      Cars: 3,
-      Comedy: 4,	
-      Dementia: 5,
+      Comedy: 4,
       Demons: 6,	
       Mystery: 7,	
       Drama: 8,	
       Fantasy: 10,
-      Game: 11,
       Horror: 14,	
       Kids: 15,
       Magic: 16,
@@ -31,7 +29,6 @@ class App extends Component {
       Mecha: 18,	
       Music: 19,
       Parody: 20,
-      Samurai: 21,
       Romance: 22,
       School: 23,
       "Sci-Fi": 24,
@@ -39,7 +36,6 @@ class App extends Component {
       Space: 29,
       Sports: 30,
       "Super-Power": 31,
-      Vampire: 32,
       "Slice-Of-Life": 36,
       Supernatural: 37,
       Military: 38,

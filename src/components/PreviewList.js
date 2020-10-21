@@ -18,7 +18,7 @@ export default class PreviewList extends Component {
                 .getGenreList(genreId)
                 .then(response => {
                     this.setState({
-                        list: response
+                        list: response.slice(0, 10)
                     });
                 })
                 .catch(err => console.log({ err }));

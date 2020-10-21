@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import AxiosService from './services/AxiosService';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import 'bulma/css/bulma.css';
 
 export default class Navbar extends Component {
@@ -55,16 +57,21 @@ export default class Navbar extends Component {
                     <Link to='/search'>Search</Link>
                 </div>
                 <div className='nav-search'>
-                    <label>
-                        <input 
-                            className="input is-rounded" 
-                            type='text' 
-                            placeholder='search' 
-                            list="auto-complete" 
-                            size="30" 
-                            value={this.search} 
-                            onChange={this.handleChange}/>
-                    </label>
+                    <div className='field'>
+                        <p className="control has-icons-left">
+                            <input 
+                                className="input" 
+                                type='text' 
+                                placeholder='search' 
+                                list="auto-complete" 
+                                size="30" 
+                                value={this.search} 
+                                onChange={this.handleChange}/>
+                            <span className="icon is-small is-left">
+                                <FontAwesomeIcon icon={faSearch} />
+                            </span>
+                        </p>
+                    </div>
                     {/* <div>
                         <ul>
                             {

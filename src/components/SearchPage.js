@@ -7,47 +7,82 @@ export default class SearchPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            animeCacheList: null
+            animeCacheList: null,
+            filteredList: null,
+            selectedGenres: []
         }
         this.axiosService = new AxiosService();
     }
 
     componentDidMount = () => {
-        for (let i = 1; i <= 4; i++) {
-            this.axiosService
-                    .getTopRated(i)
-                    .then(async response => {
-                        await this.setState((preState) => ({
-                            animeCacheList: preState.animeCacheList ? preState.animeCacheList.concat(response) : response
-                        }));
-                    })
-                    .catch(err => console.log({ err }));
-        }
+        this.callAxiosService('Action')
+    }
+
+    callAxiosService = (selectedGenre) => {
+        const genreId = this.props.genreList[selectedGenre]; 
+        this.axiosService
+                .getGenreList(genreId)
+                .then(async response => {
+                    // await this.setState((preState) => ({
+                    //     animeCacheList: preState.animeCacheList ? preState.animeCacheList.concat(response).slice(0, 50) : response
+                    // }));
+                    await this.setState((preState) => ({
+                        animeCacheList: response
+                    }));
+                })
+                .catch(err => console.log({ err }));
     }
 
     handleBtnClick = (event) => {
-        const { className } = event.target;
-        let classNameArray = className.split(" ");
+        const className= event.target.className;
+        const innerText = event.target.parentElement.innerText;
 
-        if (!classNameArray.includes('is-link')) {
-            classNameArray.push("is-link");
-        } else {
-            classNameArray = classNameArray.filter(name => name !== "is-link")
-        }
+        // console.log("parent>>>", event.target.parentElement.innerText);
+        // // console.log({className})
+        // let classNameArray = className.split(" ");
 
-        event.target.className = classNameArray.join(" ");
+        // if (!classNameArray.includes('is-link')) {
+        //     classNameArray.push("is-link");
+        //     this.setState((preState) => ({
+        //         selectedGenres: preState.selectedGenres.concat(innerText)
+        //     }))
+        //     // console.log({innerText})
+        // } else {
+        //     classNameArray = classNameArray.filter(name => name !== "is-link")
+        //     this.setState((preState) => ({
+        //         selectedGenres: preState.selectedGenres.filter(genre => genre !== innerText)
+        //     }))
+        // }
+        this.setState((preState) => ({
+            selectedGenres: preState.selectedGenres.concat(innerText)
+        }))
 
+        // event.target.className = classNameArray.join(" ");
+        // console.log('>>>>>', this.state.selectedGenres);
+        this.callAxiosService(innerText);
     }
+
+    updateBtnStatus = () => {}
+
     render() {
         return (
             <div className="home-container">
                 <div id='search-container'>
                     <div id="filter-container">
                         <h2>Search Page</h2>
-                        <div>
-                            {
+                        <div className="control genre-btns">
+                            {/* {
                                 Object.keys(this.props.genreList)?.map(genreName =>
                                     <button className='button is-small' key={genreName} onClick={this.handleBtnClick}>{genreName}</button>    
+                                )
+                            } */}
+
+                            {
+                                Object.keys(this.props.genreList)?.map(genreName =>
+                                    <label key={genreName} className="radio">
+                                        <input type='radio' name='genreBtn' onClick={this.handleBtnClick}/>
+                                        {genreName}
+                                    </label>
                                 )
                             }
                         </div>

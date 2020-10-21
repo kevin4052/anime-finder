@@ -118,7 +118,7 @@ a {
 #filter-container {
   flex: 1;
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column;
   border-right: 1px solid white;
   overflow: auto;
   /* position: fixed; */
@@ -127,6 +127,13 @@ a {
 #filter-container h2 {
   padding: 2rem 0;
   font-size: 1.25rem;
+  height: 3rem;
+}
+
+.genre-btns {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 #filter-container button {

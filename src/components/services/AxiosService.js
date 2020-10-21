@@ -16,7 +16,7 @@ export default class AxiosService {
     getGenreList = (genre) => {
         return this.apiService
             .get(`/genre/anime/${genre}/1`)
-            .then(response => response.data.anime.slice(0, 10));
+            .then(response => response.data.anime);
     }
 
     getOneAnime = (animeId) => {
