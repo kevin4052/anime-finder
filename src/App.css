@@ -138,7 +138,7 @@ a {
   flex: 7;
   display: flex;
   flex-flow: row wrap;
-  height: 100vh;
+  /* height: 100vh; */
   padding: 2rem;
   overflow: auto;
 }

@@ -13,14 +13,16 @@ export default class SearchPage extends Component {
     }
 
     componentDidMount = () => {
-        this.axiosService
-                .getTopRated()
-                .then(response => {
-                    this.setState({
-                        animeCacheList: response
+        for (let i = 1; i <= 4; i++) {
+            this.axiosService
+                    .getTopRated(i)
+                    .then(async response => {
+                        await this.setState((preState) => ({
+                            animeCacheList: preState.animeCacheList ? preState.animeCacheList.concat(response) : response
+                        }));
                     })
-                })
-                .catch(err => console.log({ err }));
+                    .catch(err => console.log({ err }));
+        }
     }
 
     handleBtnClick = (event) => {

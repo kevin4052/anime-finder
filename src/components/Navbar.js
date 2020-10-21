@@ -23,21 +23,23 @@ export default class Navbar extends Component {
         this.getSearchResults();
     }
 
-    getSearchResults = () => {        
+    getSearchResults = async () => {        
         if (this.state.search.length >= 3) {
             this.axiosService
                 .getSearchResults(this.state.search)
-                .then(response => {
-                    this.setState({
-                        searchMatches: response.map(anime => anime.title)
+                .then(async response => {
+                    await this.setState({
+                        searchMatches: response
                     })
+                    this.props.submitSearch(this.state.searchMatches);
                 })
                 .catch(err => console.log({ err }));
 
         } else {
-            this.setState({
+            await this.setState({
                 searchMatches: null
-            })
+            });
+            this.props.submitSearch(this.state.searchMatches);
         }
     }
 
@@ -54,15 +56,22 @@ export default class Navbar extends Component {
                 </div>
                 <div className='nav-search'>
                     <label>
-                        <input className="input is-rounded" type='text' placeholder='search' list="auto-complete" size="30" value={this.search} onChange={this.handleChange}/>
+                        <input 
+                            className="input is-rounded" 
+                            type='text' 
+                            placeholder='search' 
+                            list="auto-complete" 
+                            size="30" 
+                            value={this.search} 
+                            onChange={this.handleChange}/>
                     </label>
-                    <div>
+                    {/* <div>
                         <ul>
                             {
                                 this.state.searchMatches?.map(animeAutoComplete => <li key={animeAutoComplete}>{animeAutoComplete}</li>)
                             }
                         </ul>
-                    </div>
+                    </div> */}
                 </div>            
             </nav>
         );

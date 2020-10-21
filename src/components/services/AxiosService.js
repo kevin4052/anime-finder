@@ -7,9 +7,9 @@ export default class AxiosService {
         });
     }
 
-    getTopRated = () => {
+    getTopRated = (page) => {
         return this.apiService
-            .get(`/top/anime`)
+            .get(`/top/anime/${page}`)
             .then(response => response.data.top);
     }
 

@@ -51,10 +51,17 @@ class App extends Component {
 
   componentDidMount = () => {}
 
+  handleSearchResults = (searchResults) => {
+    console.log({searchResults});
+    this.setState({
+      searchResults
+    })
+  }
+
   render() {
     return (
       <div className="App">
-        <Navbar />
+        <Navbar submitSearch={this.handleSearchResults} />
 
         <Switch>
           <Route 
@@ -64,7 +71,7 @@ class App extends Component {
           <Route 
             exact 
             path='/search' 
-            render={(props) => <SearchPage {...props} genreList={this.genre} />} />
+            render={(props) => <SearchPage {...props} searchResults={this.state.searchResults} genreList={this.genre} />} />
           <Route 
             exact 
             path='/anime/:id' 

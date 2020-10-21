@@ -24,7 +24,7 @@ export default class PreviewList extends Component {
                 .catch(err => console.log({ err }));
         } else if (this.props.type === "top") {
             this.axiosService
-                .getTopRated()
+                .getTopRated(1)
                 .then(response => {
                     this.setState({
                         list: response.slice(0, 10)
