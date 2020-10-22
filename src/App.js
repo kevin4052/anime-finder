@@ -5,16 +5,14 @@ import Home from './components/Home';
 import DetailsPage from './components/DetailsPage';
 import SearchPage from './components/SearchPage';
 import MyList from './components/MyList';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './App.css';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      userList: null,
-      searchResults: null,
-      userList: null
+      userList: {},
+      searchResults: null
     }
     this.genre = {
       Action: 1,
@@ -50,10 +48,22 @@ class App extends Component {
   componentDidMount = () => {}
 
   handleSearchResults = (searchResults) => {
-    console.log({searchResults});
     this.setState({
       searchResults
     })
+  }
+
+  // saves all api responses into the state for later use
+  handleUserList = (newList) => {
+    const { userList } = this.state;
+    const key = Object.keys(newList)[0];
+
+    if (!this.state.userList.hasOwnProperty(key)) {
+      userList[key] = newList[key];
+      this.setState({ userList });
+    }   
+
+    console.log({userList: this.state.userList});
   }
 
   render() {
@@ -62,24 +72,19 @@ class App extends Component {
         <Navbar submitSearch={this.handleSearchResults} />
 
         <Switch>
-          <Route 
-            exact 
-            path='/' 
-            render={(props) => <Home {...props} genreList={this.genre} />} />
-          <Route 
-            exact 
-            path='/search' 
-            render={(props) => <SearchPage {...props} searchResults={this.state.searchResults} genreList={this.genre} />} />
-          <Route 
-            exact 
-            path='/anime/:id' 
-            render={(props) => <DetailsPage {...props} />} />
-          <Route 
-            exact 
-            path='/my-list' 
-            render={(props) => <MyList {...props} userList={this.state.userList}/> }/>
+          <Route exact path='/' render={(props) => 
+              <Home {...props} genreList={this.genre} handleUserList={this.handleUserList} />} />
+
+          <Route exact path='/search' render={(props) => 
+              <SearchPage {...props} searchResults={this.state.searchResults} genreList={this.genre} userList={this.state.userList} />} />
+
+          <Route exact path='/anime/:id' render={(props) => 
+              <DetailsPage {...props} userList={this.state.userList}/>} />
+              
+          <Route exact path='/my-list' render={(props) => 
+              <MyList {...props} userList={this.state.userList}/> }/>
         </Switch>
-        
+
       </div>
     );
   }

@@ -28,6 +28,6 @@ export default class AxiosService {
     getSearchResults = (searchInput) => {
         return this.apiService
             .get(`/search/anime?q=${searchInput}`)
-            .then(response => response.data.results);
+            .then(response => response.data.results.filter(result => result.rated !== "Rx"));
     }
 }

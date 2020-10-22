@@ -12,16 +12,20 @@ class Home extends Component {
 
   componentDidMount = () => {}
 
+  handleCall = (newList) => {
+    this.props.handleUserList(newList);
+  }
+
   render() {
     return (
       <div className="home-container is-dark">
-        <PreviewList genreList={this.props.genreList} type='top'/>
-        <PreviewList genreList={this.props.genreList} type='genre' genre="Parody" />
-        <PreviewList genreList={this.props.genreList} type='genre' genre="Shounen" />
-        <PreviewList genreList={this.props.genreList} type='genre' genre="Fantasy" />
-        <PreviewList genreList={this.props.genreList} type='genre' genre="Psychological" />
-        <PreviewList genreList={this.props.genreList} type='genre' genre="Slice-Of-Life" />
-        <PreviewList genreList={this.props.genreList} type='genre' genre="Romance" />
+        <PreviewList genreList={this.props.genreList} handleCall={this.handleCall} type='top'/>
+        <PreviewList genreList={this.props.genreList} handleCall={this.handleCall} type='genre' genre="Parody" />
+        <PreviewList genreList={this.props.genreList} handleCall={this.handleCall} type='genre' genre="Shounen" />
+        <PreviewList genreList={this.props.genreList} handleCall={this.handleCall} type='genre' genre="Fantasy" />
+        <PreviewList genreList={this.props.genreList} handleCall={this.handleCall} type='genre' genre="Psychological" />
+        <PreviewList genreList={this.props.genreList} handleCall={this.handleCall} type='genre' genre="Slice-Of-Life" />
+        <PreviewList genreList={this.props.genreList} handleCall={this.handleCall} type='genre' genre="Romance" />
       </div>
     );
   }

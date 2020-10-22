@@ -16,7 +16,7 @@ export default class SearchPage extends Component {
     }
 
     componentDidMount = () => {
-        this.callAxiosService('Action')
+        // this.callAxiosService('Action');
     }
 
     callAxiosService = (selectedGenre) => {
@@ -66,6 +66,7 @@ export default class SearchPage extends Component {
     updateBtnStatus = () => {}
 
     render() {
+        const displayList = this.state.animeCacheList || this.props.searchResults;
         return (
             <div className="home-container">
                 <div id='search-container'>
@@ -84,7 +85,7 @@ export default class SearchPage extends Component {
                     </div>
                     <div id="search-result-container">
                         {
-                            this.state.animeCacheList?.map(anime => 
+                            displayList?.map(anime => 
                                 <div key={anime.mal_id} className="card">
                                     <Link to={`/anime/${anime.mal_id}`}>
                                         <div className="card-image">

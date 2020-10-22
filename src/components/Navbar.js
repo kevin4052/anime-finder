@@ -16,7 +16,7 @@ export default class Navbar extends Component {
     }
 
     handleChange = async (event) => {
-        console.log(event.target);
+        // console.log(event.target);
         const { value } = event.target;
         await this.setState({
             search: value
@@ -30,7 +30,7 @@ export default class Navbar extends Component {
                 .getSearchResults(this.state.search)
                 .then(async response => {
                     await this.setState({
-                        searchMatches: response.slice(0, 5).map(ele => {
+                        searchMatches: response.map(ele => {
                             return {
                                 mal_id: ele.mal_id,
                                 title: ele.title,
@@ -88,7 +88,7 @@ export default class Navbar extends Component {
                         <div className='input-results'>
                             <ul>
                                 {
-                                    this.state.searchMatches?.map(result => 
+                                    this.state.searchMatches?.slice(0, 5).map(result => 
                                         <li key={result.mal_id} onClick={this.clickSearchLink}>
                                             <Link to={`/anime/${result.mal_id}`}>{result.title}</Link>
                                         </li>

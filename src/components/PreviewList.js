@@ -12,26 +12,38 @@ export default class PreviewList extends Component {
     }
 
     componentDidMount = () => {
-        if (this.props.type === "genre") {
+        if (this.props.type === "top") {
+            this.getDefaultGenre();
+        } else {
             const genreId = this.props.genreList[this.props.genre];            
-            this.axiosService
-                .getGenreList(genreId)
-                .then(response => {
-                    this.setState({
-                        list: response.slice(0, 10)
-                    });
-                })
-                .catch(err => console.log({ err }));
-        } else if (this.props.type === "top") {
-            this.axiosService
-                .getTopRated(1)
-                .then(response => {
-                    this.setState({
-                        list: response.slice(0, 10)
-                    })
-                })
-                .catch(err => console.log({ err }));
+            this.getSelectedGenre(genreId);
         }
+    }
+
+    // sets state with the default genre of "Action"
+    getDefaultGenre = () => {
+        this.axiosService
+                .getTopRated(1)
+                .then(async response => {
+                    await this.setState({
+                        list: response
+                    });
+                    this.props.handleCall({top: this.state.list});
+                })
+                .catch(err => console.log({ err }));
+    }
+
+    // sets state with the top 10 of a given genre
+    getSelectedGenre = (genreId) => {
+        this.axiosService
+                .getGenreList(genreId)
+                .then(async response => {
+                    await this.setState({
+                        list: response
+                    });
+                    this.props.handleCall({[this.props.genre]: this.state.list});
+                })
+                .catch(err => console.log({ err }));
     }
 
     render() {
@@ -42,7 +54,7 @@ export default class PreviewList extends Component {
                 </div>
                 <div className="row-container">
                     {
-                        this.state.list?.map(anime => 
+                        this.state.list?.slice(0, 10).map(anime => 
                             <div key={anime.mal_id} className="card">
                                 <Link to={`/anime/${anime.mal_id}`}>
                                     <div className="card-image">
