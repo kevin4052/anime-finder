@@ -34,6 +34,23 @@ export default class SearchPage extends Component {
 
     handleBtnClick = (event) => {
         const innerText = event.target.parentElement.innerText;
+        
+        let checkBoxClass = event.target.parentElement.className.split(" ");
+        checkBoxClass = !checkBoxClass.includes("is-link") 
+        ? checkBoxClass.concat("is-link") 
+        : checkBoxClass.filter(ele => ele !== "is-link");
+        
+        event.target.parentElement.className = checkBoxClass.join(" ");
+
+        // console.log({event: event.target.parentElement.parentElement.childNodes});
+        // console.log({event: event.target.parentElement.parentElement.childNodes[0].innerText});
+
+        const currentlyChecked = Array.from(event.target.parentElement.parentElement.childNodes).filter(ele => {
+            if (ele.className.split(' ').includes('is-link')) return (ele);
+        })
+
+        console.log({button: currentlyChecked[0].innerText})
+        console.log(currentlyChecked.map(ele => ele.innerText))
 
         if (this.cachedGenres.includes(innerText)) {
             this.setState(() => ({
@@ -56,8 +73,8 @@ export default class SearchPage extends Component {
                         <div className="control genre-btns">
                             {
                                 Object.keys(this.props.genreList)?.map(genreName =>
-                                    <label key={genreName} className="radio">
-                                        <input type='radio' name='genreBtn' onClick={this.handleBtnClick}/>
+                                    <label key={genreName} className="button checkbox">
+                                        <input type='checkbox' name='genreBtn' onClick={this.handleBtnClick}/>
                                         {genreName}
                                     </label>
                                 )
