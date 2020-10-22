@@ -6,7 +6,8 @@ export default class PreviewList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            list: null
+            list: null,
+            hasBeenCalled: Object.keys(this.props.userList).includes(this.props.genre)
         }
         this.axiosService = new AxiosService();
     }
@@ -22,7 +23,15 @@ export default class PreviewList extends Component {
 
     // sets state with the default genre of "Action"
     getDefaultGenre = () => {
-        this.axiosService
+
+        console.log({hasBeenCalled: this.state.hasBeenCalled});
+        console.log(this.props.genre);
+
+        this.state.hasBeenCalled 
+        ? this.setState({
+            list: this.props.userList.top
+        })
+        : this.axiosService
                 .getTopRated(1)
                 .then(async response => {
                     await this.setState({
@@ -30,12 +39,19 @@ export default class PreviewList extends Component {
                     });
                     this.props.handleCall({top: this.state.list});
                 })
-                .catch(err => console.log({ err }));
+                .catch(err => console.log({ err }))
     }
 
     // sets state with the top 10 of a given genre
     getSelectedGenre = (genreId) => {
-        this.axiosService
+        console.log({hasBeenCalled: this.state.hasBeenCalled});
+        console.log(this.props.genre);
+
+        this.state.hasBeenCalled
+        ? this.setState({
+            list: this.props.userList[this.props.genre]
+        })
+        : this.axiosService
                 .getGenreList(genreId)
                 .then(async response => {
                     await this.setState({
@@ -43,7 +59,7 @@ export default class PreviewList extends Component {
                     });
                     this.props.handleCall({[this.props.genre]: this.state.list});
                 })
-                .catch(err => console.log({ err }));
+                .catch(err => console.log({ err }))
     }
 
     render() {

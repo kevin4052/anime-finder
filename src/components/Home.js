@@ -19,13 +19,25 @@ class Home extends Component {
   render() {
     return (
       <div className="home-container is-dark">
-        <PreviewList genreList={this.props.genreList} handleCall={this.handleCall} type='top'/>
-        <PreviewList genreList={this.props.genreList} handleCall={this.handleCall} type='genre' genre="Parody" />
-        <PreviewList genreList={this.props.genreList} handleCall={this.handleCall} type='genre' genre="Shounen" />
-        <PreviewList genreList={this.props.genreList} handleCall={this.handleCall} type='genre' genre="Fantasy" />
-        <PreviewList genreList={this.props.genreList} handleCall={this.handleCall} type='genre' genre="Psychological" />
-        <PreviewList genreList={this.props.genreList} handleCall={this.handleCall} type='genre' genre="Slice-Of-Life" />
-        <PreviewList genreList={this.props.genreList} handleCall={this.handleCall} type='genre' genre="Romance" />
+        <PreviewList 
+          genreList={this.props.genreList} 
+          userList={this.props.userList} 
+          handleCall={this.handleCall} 
+          type='top'
+          genre='top'
+          />
+        {
+          this.props.homePageGenres?.map(ele => 
+            <PreviewList 
+              key={ele} 
+              genreList={this.props.genreList} 
+              userList={this.props.userList} 
+              handleCall={this.handleCall} 
+              type='genre' 
+              genre={ele}
+              />
+          )
+        }
       </div>
     );
   }

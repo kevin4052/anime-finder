@@ -12,7 +12,8 @@ class App extends Component {
     super();
     this.state = {
       userList: {},
-      searchResults: null
+      searchResults: null,
+      homePageGenres: ['Parody', 'Shounen', 'Fantasy', 'Psychological', 'Slice-Of-Life', 'Romance']
     }
     this.genre = {
       Action: 1,
@@ -73,7 +74,7 @@ class App extends Component {
 
         <Switch>
           <Route exact path='/' render={(props) => 
-              <Home {...props} genreList={this.genre} handleUserList={this.handleUserList} />} />
+              <Home {...props} genreList={this.genre} homePageGenres={this.state.homePageGenres} handleUserList={this.handleUserList} userList={this.state.userList} />} />
 
           <Route exact path='/search' render={(props) => 
               <SearchPage {...props} searchResults={this.state.searchResults} genreList={this.genre} userList={this.state.userList} />} />
