@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
 import AxiosService from './services/AxiosService';
 import AnimeCard from './animeCard';
 import 'bulma/css/bulma.css';
@@ -14,54 +13,35 @@ export default class SearchPage extends Component {
             selectedGenres: []
         }
         this.axiosService = new AxiosService();
+        this.cachedGenres = Object.keys(this.props.cacheList);
     }
 
-    componentDidMount = () => {
-        // this.callAxiosService('Action');
-    }
+    componentDidMount = () => {}
 
     callAxiosService = (selectedGenre) => {
         const genreId = this.props.genreList[selectedGenre]; 
         this.axiosService
                 .getGenreList(genreId)
                 .then(async response => {
-                    // await this.setState((preState) => ({
-                    //     animeCacheList: preState.animeCacheList ? preState.animeCacheList.concat(response).slice(0, 50) : response
-                    // }));
                     await this.setState(() => ({
                         animeCacheList: response
                     }));
+                    this.props.handleUserList(this.state.selectedGenres);
                 })
                 .catch(err => console.log({ err }));
+
     }
 
     handleBtnClick = (event) => {
-        // const className= event.target.className;
         const innerText = event.target.parentElement.innerText;
 
-        // console.log("parent>>>", event.target.parentElement.innerText);
-        // // console.log({className})
-        // let classNameArray = className.split(" ");
-
-        // if (!classNameArray.includes('is-link')) {
-        //     classNameArray.push("is-link");
-        //     this.setState((preState) => ({
-        //         selectedGenres: preState.selectedGenres.concat(innerText)
-        //     }))
-        //     // console.log({innerText})
-        // } else {
-        //     classNameArray = classNameArray.filter(name => name !== "is-link")
-        //     this.setState((preState) => ({
-        //         selectedGenres: preState.selectedGenres.filter(genre => genre !== innerText)
-        //     }))
-        // }
-        this.setState((preState) => ({
-            selectedGenres: preState.selectedGenres.concat(innerText)
-        }))
-
-        // event.target.className = classNameArray.join(" ");
-        // console.log('>>>>>', this.state.selectedGenres);
-        this.callAxiosService(innerText);
+        if (this.cachedGenres.includes(innerText)) {
+            this.setState(() => ({
+                animeCacheList: this.props.cacheList[innerText]
+            }));
+        } else {
+            this.callAxiosService(innerText);
+        }
     }
 
     updateBtnStatus = () => {}

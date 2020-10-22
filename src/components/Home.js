@@ -21,7 +21,7 @@ class Home extends Component {
       <div className="home-container is-dark">
         <PreviewList 
           genreList={this.props.genreList} 
-          userList={this.props.userList} 
+          cacheList={this.props.cacheList} 
           handleCall={this.handleCall} 
           type='top'
           genre='Top'
@@ -31,7 +31,7 @@ class Home extends Component {
             <PreviewList 
               key={ele} 
               genreList={this.props.genreList} 
-              userList={this.props.userList} 
+              cacheList={this.props.cacheList} 
               handleCall={this.handleCall} 
               type='genre' 
               genre={ele}

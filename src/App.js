@@ -11,7 +11,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      userList: {},
+      cacheList: {},
+      favorites: [],
       searchResults: null,
       homePageGenres: ['Parody', 'Shounen', 'Fantasy', 'Psychological', 'Slice-Of-Life', 'Romance']
     }
@@ -56,12 +57,12 @@ class App extends Component {
 
   // saves all api responses into the state for later use
   handleUserList = (newList) => {
-    const { userList } = this.state;
+    const { cacheList } = this.state;
     const key = Object.keys(newList)[0];
 
-    if (!this.state.userList.hasOwnProperty(key)) {
-      userList[key] = newList[key];
-      this.setState({ userList });
+    if (!this.state.cacheList.hasOwnProperty(key)) {
+      cacheList[key] = newList[key];
+      this.setState({ cacheList });
     }   
 
     // console.log({userList: this.state.userList});
@@ -74,16 +75,30 @@ class App extends Component {
 
         <Switch>
           <Route exact path='/' render={(props) => 
-              <Home {...props} genreList={this.genre} homePageGenres={this.state.homePageGenres} handleUserList={this.handleUserList} userList={this.state.userList} />} />
+              <Home 
+                {...props} 
+                genreList={this.genre} 
+                homePageGenres={this.state.homePageGenres} 
+                handleUserList={this.handleUserList} 
+                cacheList={this.state.cacheList} />} />
 
           <Route exact path='/search' render={(props) => 
-              <SearchPage {...props} searchResults={this.state.searchResults} genreList={this.genre} userList={this.state.userList} />} />
+              <SearchPage 
+                {...props} 
+                searchResults={this.state.searchResults} 
+                genreList={this.genre}
+                handleUserList={this.handleUserList}
+                cacheList={this.state.cacheList} />} />
 
           <Route exact path='/anime/:id' render={(props) => 
-              <DetailsPage {...props} userList={this.state.userList}/>} />
+              <DetailsPage 
+                {...props} 
+                cacheList={this.state.cacheList}/>} />
               
           <Route exact path='/my-list' render={(props) => 
-              <MyList {...props} userList={this.state.userList}/> }/>
+              <MyList 
+                {...props} 
+                cacheList={this.state.cacheList}/> }/>
         </Switch>
 
       </div>

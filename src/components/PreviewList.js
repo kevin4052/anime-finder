@@ -7,7 +7,7 @@ export default class PreviewList extends Component {
         super(props);
         this.state = {
             list: null,
-            hasBeenCalled: Object.keys(this.props.userList).includes(this.props.genre)
+            hasBeenCalled: Object.keys(this.props.cacheList).includes(this.props.genre)
         }
         this.axiosService = new AxiosService();
     }
@@ -29,7 +29,7 @@ export default class PreviewList extends Component {
 
         this.state.hasBeenCalled 
         ? this.setState({
-            list: this.props.userList.top
+            list: this.props.cacheList.top
         })
         : this.axiosService
                 .getTopRated(1)
@@ -49,7 +49,7 @@ export default class PreviewList extends Component {
 
         this.state.hasBeenCalled
         ? this.setState({
-            list: this.props.userList[this.props.genre]
+            list: this.props.cacheList[this.props.genre]
         })
         : this.axiosService
                 .getGenreList(genreId)
