@@ -24,7 +24,7 @@ class Home extends Component {
           userList={this.props.userList} 
           handleCall={this.handleCall} 
           type='top'
-          genre='top'
+          genre='Top'
           />
         {
           this.props.homePageGenres?.map(ele => 

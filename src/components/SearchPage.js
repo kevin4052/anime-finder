@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import AxiosService from './services/AxiosService';
+import AnimeCard from './animeCard';
 import 'bulma/css/bulma.css';
 
 export default class SearchPage extends Component {
@@ -86,15 +87,7 @@ export default class SearchPage extends Component {
                     <div id="search-result-container">
                         {
                             displayList?.map(anime => 
-                                <div key={anime.mal_id} className="card">
-                                    <Link to={`/anime/${anime.mal_id}`}>
-                                        <div className="card-image">
-                                            <figure className="image is-2by3">
-                                                <img src={anime.image_url} alt={anime.title}/>
-                                            </figure>
-                                        </div>
-                                    </Link>
-                                </div>
+                                <AnimeCard key={anime.mal_id} title={anime.title} id={anime.mal_id} img={anime.image_url} />
                             )
                         }
                     </div>

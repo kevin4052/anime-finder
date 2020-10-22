@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AxiosService from './services/AxiosService';
-import { Link } from 'react-router-dom';
+import AnimeCard from './animeCard';
 
 export default class PreviewList extends Component {
     constructor(props) {
@@ -24,8 +24,8 @@ export default class PreviewList extends Component {
     // sets state with the default genre of "Action"
     getDefaultGenre = () => {
 
-        console.log({hasBeenCalled: this.state.hasBeenCalled});
-        console.log(this.props.genre);
+        // console.log({hasBeenCalled: this.state.hasBeenCalled});
+        // console.log(this.props.genre);
 
         this.state.hasBeenCalled 
         ? this.setState({
@@ -44,8 +44,8 @@ export default class PreviewList extends Component {
 
     // sets state with the top 10 of a given genre
     getSelectedGenre = (genreId) => {
-        console.log({hasBeenCalled: this.state.hasBeenCalled});
-        console.log(this.props.genre);
+        // console.log({hasBeenCalled: this.state.hasBeenCalled});
+        // console.log(this.props.genre);
 
         this.state.hasBeenCalled
         ? this.setState({
@@ -66,20 +66,12 @@ export default class PreviewList extends Component {
         return (
             <div className="preview-box">
                 <div className="row-title">
-                    <h2>{this.props.genre || "Top"}</h2>
+                    <h2>{this.props.genre}</h2>
                 </div>
                 <div className="row-container">
                     {
                         this.state.list?.slice(0, 10).map(anime => 
-                            <div key={anime.mal_id} className="card">
-                                <Link to={`/anime/${anime.mal_id}`}>
-                                    <div className="card-image">
-                                        <figure className="image is-2by3">
-                                            <img src={anime.image_url} alt={anime.title}/>
-                                        </figure>
-                                    </div>
-                                </Link>
-                            </div>
+                            <AnimeCard key={anime.mal_id} title={anime.title} id={anime.mal_id} img={anime.image_url} />                            
                         )
                     }
                 </div>

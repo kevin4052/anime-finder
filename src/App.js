@@ -64,7 +64,7 @@ class App extends Component {
       this.setState({ userList });
     }   
 
-    console.log({userList: this.state.userList});
+    // console.log({userList: this.state.userList});
   }
 
   render() {

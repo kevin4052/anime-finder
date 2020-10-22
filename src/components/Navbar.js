@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import AxiosService from './services/AxiosService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -61,13 +61,13 @@ export default class Navbar extends Component {
         return (
             <nav className="navbar is-dark">
                 <div className="nav-logo">
-                    <Link to='/' >
+                    <NavLink to='/' >
                         <img className="app-logo" src='./images/animeFinderLogo.png' alt='site-logo' />
-                    </Link>
+                    </NavLink>
                     <div className='nav-links'>
-                        <Link to='/'>Home</Link>
-                        <Link to='/search'>Search</Link>
-                        <Link to='/my-list'>My List</Link>
+                        <NavLink exact activeClassName='current-nav' to='/'>Home</NavLink>
+                        <NavLink exact activeClassName='current-nav' to='/search'>Search</NavLink>
+                        <NavLink exact activeClassName='current-nav' to='/my-list'>My List</NavLink>
                     </div>
                 </div>
                 <div className='nav-search'>
