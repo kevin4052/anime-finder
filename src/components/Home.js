@@ -12,17 +12,12 @@ class Home extends Component {
 
   componentDidMount = () => {}
 
-  handleCall = (newList) => {
-    this.props.handleUserList(newList);
-  }
-
   render() {
     return (
       <div className="home-container is-dark">
         <PreviewList 
           genreList={this.props.genreList} 
           cacheList={this.props.cacheList} 
-          // handleCall={this.handleCall}
           type='top'
           genre='Top'
           />
@@ -32,7 +27,6 @@ class Home extends Component {
               key={ele} 
               genreList={this.props.genreList} 
               cacheList={this.props.cacheList} 
-              // handleCall={this.handleCall}
               type='genre' 
               genre={ele}
               />

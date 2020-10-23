@@ -14,59 +14,39 @@ export default class SearchPage extends Component {
             cachedGenres: Object.keys(this.props.cacheList)
         }
         this.axiosService = new AxiosService();
-        // this.cachedGenres = Object.keys(this.props.cacheList);
     }
 
-    componentDidMount = () => {}
+    componentDidMount = () => {
+        this.setState({
+            displayList: this.props.cacheList['Top']
+        })
+    }
 
-    callAxiosService = (selectedGenre) => {
-        const genreId = this.props.genreList[selectedGenre]; 
-        this.axiosService
-                .getGenreList(genreId)
-                .then(async response => {
-                    await this.setState(() => ({
-                        displayList: response
-                    }));
-
-                    // lift newly called genre to app.js
-                    this.props.handleUserList({ [selectedGenre]: response });
-                    console.log({[selectedGenre]: response});
-                })
-                .catch(err => console.log({ err }));
+    getSelectedBoxes = () => {
 
     }
 
     handleBtnClick = (event) => {
-        let checkBoxClass = event.target.parentElement.className.split(" ");
-        const checkboxChildNodes = event.target.parentElement.parentElement.childNodes;
-
-        // adds or removes "is-link" to selected checkbox
+        // get the checkbox class name and splits into an array
+        let checkBoxClass = event.target.parentElement.className.split(" ");        
+        // adds or removes "is-link" to selected checkbox array
         checkBoxClass = !checkBoxClass.includes("is-link") 
-            ? checkBoxClass.concat("is-link") 
-            : checkBoxClass.filter(ele => ele !== "is-link");        
+        ? checkBoxClass.concat("is-link") 
+        : checkBoxClass.filter(ele => ele !== "is-link");
+        // set the className to the new state
         event.target.parentElement.className = checkBoxClass.join(" ");
-
+        
+        // the node list of all the checkboxes
+        const checkboxChildNodes = event.target.parentElement.parentElement.childNodes;
         // creates an array of currently checked checkboxes
         const currentlyChecked = Array.from(checkboxChildNodes).filter(ele => {
             return ele.className.split(' ').includes('is-link') && ele;
         });
-
-        console.log("vv>>>", this.state.cachedGenres)
-
         // iterate through checkbox array to either make an axios call or pull from the cached list
         currentlyChecked.forEach(genre => {
-
-            if (this.state.cachedGenres.includes(genre.innerText)) {
-
-                this.setState((preState) => ({
-                    displayList: preState.displayList 
-                        ? preState.displayList.concat(this.props.cacheList[genre.innerText])
-                        : this.props.cacheList[genre.innerText]
-                }));
-
-            } else {
-                this.callAxiosService(genre.innerText);
-            }
+            this.setState((preState) => ({
+                displayList: preState.displayList.concat(this.props.cacheList[genre.innerText])
+            }));
         });
 
     }

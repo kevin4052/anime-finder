@@ -60,18 +60,18 @@ class App extends Component {
 
       });
 
-    await Object.keys(this.genre).forEach(async genre => {
-      await setTimeout(() => {
-        this.axiosService
+    Object.keys(this.genre).forEach(async genre => {
+      setTimeout(async () => {
+        await this.axiosService
           .getGenreList(this.genre[genre])
-          .then(async response => {
+          .then(response => {
 
-            await this.setState((preState) => ({
+            this.setState((preState) => ({
               cacheList: Object.assign(preState.cacheList, {[genre]: response})
             }));
 
           })
-        }, 1000)
+        }, 2000)
       });
 
     console.log({cacheList: this.state.cacheList})
@@ -81,21 +81,6 @@ class App extends Component {
     this.setState({
       searchResults
     })
-  }
-
-  // saves all api responses into the state for later use
-  handleUserList = async (newList) => {
-    const { cacheList } = this.state;
-    const key = Object.keys(newList)[0];
-
-    console.log({ newList })
-
-    if (!cacheList.hasOwnProperty(key)) {
-      cacheList[key] = newList[key];
-      await this.setState({ cacheList: cacheList });
-      console.log({appJS: Object.keys(this.state.cacheList)});
-    }   
-
   }
 
   render() {
@@ -109,7 +94,6 @@ class App extends Component {
                 {...props} 
                 genreList={Object.keys(this.state.cacheList)} 
                 homePageGenres={this.state.homePageGenres} 
-                // handleUserList={this.handleUserList}
                 cacheList={this.state.cacheList} />} />
                   
 

@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import AxiosService from './services/AxiosService';
+// import AxiosService from './services/AxiosService';
 import AnimeCard from './animeCard';
 
 export default class PreviewList extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            list: this.props.cacheList[this.props.genre],
-            hasBeenCalled: Object.keys(this.props.cacheList).includes(this.props.genre)
-        }
-        this.axiosService = new AxiosService();
-    }
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         list: this.props.cacheList[this.props.genre],
+    //         hasBeenCalled: Object.keys(this.props.cacheList).includes(this.props.genre)
+    //     }
+    //     this.axiosService = new AxiosService();
+    // }
 
     // componentDidMount = () => {
     //     // if (this.props.type === "top") {
@@ -26,40 +26,38 @@ export default class PreviewList extends Component {
     // }
 
     // sets state with the default genre of "Action"
-    getDefaultGenre = () => {
+    // getDefaultGenre = () => {
 
-        this.state.hasBeenCalled 
-        ? this.setState({
-            list: this.props.cacheList.top
-        })
-        : this.axiosService
-                .getTopRated(1)
-                .then(async response => {
-                    await this.setState({
-                        list: response
-                    });
-                    // this.props.handleCall({top: this.state.list});
-                })
-                .catch(err => console.log({ err }))
-    }
+    //     this.state.hasBeenCalled 
+    //     ? this.setState({
+    //         list: this.props.cacheList.top
+    //     })
+    //     : this.axiosService
+    //             .getTopRated(1)
+    //             .then(async response => {
+    //                 await this.setState({
+    //                     list: response
+    //                 });
+    //             })
+    //             .catch(err => console.log({ err }))
+    // }
 
     // sets state with the top 10 of a given genre
-    getSelectedGenre = (genreId) => {
+    // getSelectedGenre = (genreId) => {
 
-        this.state.hasBeenCalled
-        ? this.setState({
-            list: this.props.cacheList[this.props.genre]
-        })
-        : this.axiosService
-                .getGenreList(genreId)
-                .then(async response => {
-                    await this.setState({
-                        list: response
-                    });
-                    // this.props.handleCall({[this.props.genre]: this.state.list});
-                })
-                .catch(err => console.log({ err }))
-    }
+    //     this.state.hasBeenCalled
+    //     ? this.setState({
+    //         list: this.props.cacheList[this.props.genre]
+    //     })
+    //     : this.axiosService
+    //             .getGenreList(genreId)
+    //             .then(async response => {
+    //                 await this.setState({
+    //                     list: response
+    //                 });
+    //             })
+    //             .catch(err => console.log({ err }))
+    // }
 
     render() {
         return (
