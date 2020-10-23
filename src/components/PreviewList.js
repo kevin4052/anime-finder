@@ -6,26 +6,27 @@ export default class PreviewList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            list: null,
+            list: this.props.cacheList[this.props.genre],
             hasBeenCalled: Object.keys(this.props.cacheList).includes(this.props.genre)
         }
         this.axiosService = new AxiosService();
     }
 
-    componentDidMount = () => {
-        if (this.props.type === "top") {
-            this.getDefaultGenre();
-        } else {
-            const genreId = this.props.genreList[this.props.genre];            
-            this.getSelectedGenre(genreId);
-        }
-    }
+    // componentDidMount = () => {
+    //     // if (this.props.type === "top") {
+    //     //     // this.getDefaultGenre();
+    //     // } else {
+    //     //     // const genreId = this.props.genreList[this.props.genre];            
+    //     //     // this.getSelectedGenre(genreId);
+    //     // }
+    //     console.log(this.props.genre, this.props.cacheList[this.props.genre])
+    //     this.setState({
+    //         list: this.props.cacheList[this.props.genre]
+    //     })
+    // }
 
     // sets state with the default genre of "Action"
     getDefaultGenre = () => {
-
-        // console.log({hasBeenCalled: this.state.hasBeenCalled});
-        // console.log(this.props.genre);
 
         this.state.hasBeenCalled 
         ? this.setState({
@@ -37,15 +38,13 @@ export default class PreviewList extends Component {
                     await this.setState({
                         list: response
                     });
-                    this.props.handleCall({top: this.state.list});
+                    // this.props.handleCall({top: this.state.list});
                 })
                 .catch(err => console.log({ err }))
     }
 
     // sets state with the top 10 of a given genre
     getSelectedGenre = (genreId) => {
-        // console.log({hasBeenCalled: this.state.hasBeenCalled});
-        // console.log(this.props.genre);
 
         this.state.hasBeenCalled
         ? this.setState({
@@ -57,7 +56,7 @@ export default class PreviewList extends Component {
                     await this.setState({
                         list: response
                     });
-                    this.props.handleCall({[this.props.genre]: this.state.list});
+                    // this.props.handleCall({[this.props.genre]: this.state.list});
                 })
                 .catch(err => console.log({ err }))
     }
@@ -70,7 +69,7 @@ export default class PreviewList extends Component {
                 </div>
                 <div className="row-container">
                     {
-                        this.state.list?.slice(0, 10).map(anime => 
+                        this.props.cacheList[this.props.genre]?.slice(0, 10).map(anime => 
                             <AnimeCard key={anime.mal_id} title={anime.title} id={anime.mal_id} img={anime.image_url} />                            
                         )
                     }

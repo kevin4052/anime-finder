@@ -5,6 +5,7 @@ import Home from './components/Home';
 import DetailsPage from './components/DetailsPage';
 import SearchPage from './components/SearchPage';
 import MyList from './components/MyList';
+import AxiosService from './components/services/AxiosService'
 import './App.css';
 
 class App extends Component {
@@ -16,6 +17,7 @@ class App extends Component {
       searchResults: null,
       homePageGenres: ['Parody', 'Shounen', 'Fantasy', 'Psychological', 'Slice-Of-Life', 'Romance']
     }
+    this.axiosService = new AxiosService();
     this.genre = {
       Action: 1,
       Adventure: 2,
@@ -47,7 +49,33 @@ class App extends Component {
     }
   }
 
-  componentDidMount = () => {}
+  componentDidMount = async () => {
+    await this.axiosService
+      .getTopRated(1)
+      .then(response => {
+
+        this.setState((preState) => ({
+          cacheList: Object.assign(preState.cacheList, {Top: response})
+        }));
+
+      });
+
+    await Object.keys(this.genre).forEach(async genre => {
+      await setTimeout(() => {
+        this.axiosService
+          .getGenreList(this.genre[genre])
+          .then(async response => {
+
+            await this.setState((preState) => ({
+              cacheList: Object.assign(preState.cacheList, {[genre]: response})
+            }));
+
+          })
+        }, 1000)
+      });
+
+    console.log({cacheList: this.state.cacheList})
+  }
 
   handleSearchResults = (searchResults) => {
     this.setState({
@@ -79,10 +107,11 @@ class App extends Component {
           <Route exact path='/' render={(props) => 
               <Home 
                 {...props} 
-                genreList={this.genre} 
+                genreList={Object.keys(this.state.cacheList)} 
                 homePageGenres={this.state.homePageGenres} 
-                handleUserList={this.handleUserList} 
+                // handleUserList={this.handleUserList}
                 cacheList={this.state.cacheList} />} />
+                  
 
           <Route exact path='/search' render={(props) => 
               <SearchPage 
