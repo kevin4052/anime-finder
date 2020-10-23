@@ -7,13 +7,14 @@ export default class SearchPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            animeCacheList: null,
+            displayList: null,
             genreCacheList: [],
             filteredAnimeList: null,
-            selectedGenres: []
+            selectedGenres: [],
+            cachedGenres: Object.keys(this.props.cacheList)
         }
         this.axiosService = new AxiosService();
-        this.cachedGenres = Object.keys(this.props.cacheList);
+        // this.cachedGenres = Object.keys(this.props.cacheList);
     }
 
     componentDidMount = () => {}
@@ -24,47 +25,56 @@ export default class SearchPage extends Component {
                 .getGenreList(genreId)
                 .then(async response => {
                     await this.setState(() => ({
-                        animeCacheList: response
+                        displayList: response
                     }));
-                    this.props.handleUserList(this.state.selectedGenres);
+
+                    // lift newly called genre to app.js
+                    this.props.handleUserList({ [selectedGenre]: response });
+                    console.log({[selectedGenre]: response});
                 })
                 .catch(err => console.log({ err }));
 
     }
 
     handleBtnClick = (event) => {
-        const innerText = event.target.parentElement.innerText;
-        
         let checkBoxClass = event.target.parentElement.className.split(" ");
+        const checkboxChildNodes = event.target.parentElement.parentElement.childNodes;
+
+        // adds or removes "is-link" to selected checkbox
         checkBoxClass = !checkBoxClass.includes("is-link") 
-        ? checkBoxClass.concat("is-link") 
-        : checkBoxClass.filter(ele => ele !== "is-link");
-        
+            ? checkBoxClass.concat("is-link") 
+            : checkBoxClass.filter(ele => ele !== "is-link");        
         event.target.parentElement.className = checkBoxClass.join(" ");
 
-        // console.log({event: event.target.parentElement.parentElement.childNodes});
-        // console.log({event: event.target.parentElement.parentElement.childNodes[0].innerText});
+        // creates an array of currently checked checkboxes
+        const currentlyChecked = Array.from(checkboxChildNodes).filter(ele => {
+            return ele.className.split(' ').includes('is-link') && ele;
+        });
 
-        const currentlyChecked = Array.from(event.target.parentElement.parentElement.childNodes).filter(ele => {
-            if (ele.className.split(' ').includes('is-link')) return (ele);
-        })
+        console.log("vv>>>", this.state.cachedGenres)
 
-        console.log({button: currentlyChecked[0].innerText})
-        console.log(currentlyChecked.map(ele => ele.innerText))
+        // iterate through checkbox array to either make an axios call or pull from the cached list
+        currentlyChecked.forEach(genre => {
 
-        if (this.cachedGenres.includes(innerText)) {
-            this.setState(() => ({
-                animeCacheList: this.props.cacheList[innerText]
-            }));
-        } else {
-            this.callAxiosService(innerText);
-        }
+            if (this.state.cachedGenres.includes(genre.innerText)) {
+
+                this.setState((preState) => ({
+                    displayList: preState.displayList 
+                        ? preState.displayList.concat(this.props.cacheList[genre.innerText])
+                        : this.props.cacheList[genre.innerText]
+                }));
+
+            } else {
+                this.callAxiosService(genre.innerText);
+            }
+        });
+
     }
 
     updateBtnStatus = () => {}
 
     render() {
-        const displayList = this.state.animeCacheList || this.props.searchResults;
+        const displayList = this.state.displayList || this.props.searchResults;
         return (
             <div className="home-container">
                 <div id='search-container'>
@@ -83,8 +93,8 @@ export default class SearchPage extends Component {
                     </div>
                     <div id="search-result-container">
                         {
-                            displayList?.map(anime => 
-                                <AnimeCard key={anime.mal_id} title={anime.title} id={anime.mal_id} img={anime.image_url} />
+                            displayList?.map((anime, index) => 
+                                <AnimeCard key={index} title={anime.title} id={anime.mal_id} img={anime.image_url} />
                             )
                         }
                     </div>

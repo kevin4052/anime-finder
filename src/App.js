@@ -56,16 +56,18 @@ class App extends Component {
   }
 
   // saves all api responses into the state for later use
-  handleUserList = (newList) => {
+  handleUserList = async (newList) => {
     const { cacheList } = this.state;
     const key = Object.keys(newList)[0];
 
-    if (!this.state.cacheList.hasOwnProperty(key)) {
+    console.log({ newList })
+
+    if (!cacheList.hasOwnProperty(key)) {
       cacheList[key] = newList[key];
-      this.setState({ cacheList });
+      await this.setState({ cacheList: cacheList });
+      console.log({appJS: Object.keys(this.state.cacheList)});
     }   
 
-    // console.log({userList: this.state.userList});
   }
 
   render() {
