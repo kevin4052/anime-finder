@@ -22,8 +22,19 @@ export default class SearchPage extends Component {
         })
     }
 
-    getSelectedBoxes = () => {
+    // return a unique array of objects
+    cleanDisplayList = (array) => {
+        const idCheckList = [];
+        let uniqueList = [];
 
+        array.forEach(anime => {
+            if (!idCheckList.includes(anime.mal_id)) {
+                idCheckList.push(anime.mal_id);
+                uniqueList.push(anime);
+            }
+        });
+
+        return uniqueList;
     }
 
     handleBtnClick = (event) => {
@@ -42,19 +53,31 @@ export default class SearchPage extends Component {
         const currentlyChecked = Array.from(checkboxChildNodes).filter(ele => {
             return ele.className.split(' ').includes('is-link') && ele;
         });
+
         // iterate through checkbox array to either make an axios call or pull from the cached list
-        currentlyChecked.forEach(genre => {
-            this.setState((preState) => ({
-                displayList: preState.displayList.concat(this.props.cacheList[genre.innerText])
-            }));
+        // let newDisplayList = [];
+        // currentlyChecked.forEach(genre => {
+        //     newDisplayList.concat(this.props.cacheList[genre.innerText]);
+        //     console.log({[genre.innerText]: this.props.cacheList[genre.innerText]});
+        // });
+
+        let newDisplayList = currentlyChecked?.map(genre => {
+            return this.props.cacheList[genre.innerText]
+        })
+
+        this.setState({
+            displayList: this.cleanDisplayList(newDisplayList.flat())
         });
+
+        console.log({newDisplayList});
+
 
     }
 
     updateBtnStatus = () => {}
 
     render() {
-        const displayList = this.state.displayList || this.props.searchResults;
+        const displayList = this.props.searchResults || this.state.displayList;
         return (
             <div className="home-container">
                 <div id='search-container'>
@@ -73,8 +96,8 @@ export default class SearchPage extends Component {
                     </div>
                     <div id="search-result-container">
                         {
-                            displayList?.map((anime, index) => 
-                                <AnimeCard key={index} title={anime.title} id={anime.mal_id} img={anime.image_url} />
+                            displayList?.map((anime) => 
+                                <AnimeCard key={anime.mal_id} title={anime.title} id={anime.mal_id} img={anime.image_url} />
                             )
                         }
                     </div>
