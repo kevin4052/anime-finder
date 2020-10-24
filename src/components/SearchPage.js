@@ -88,8 +88,6 @@ export default class SearchPage extends Component {
             return count === selected.length;
         });
 
-        console.log(">>>> after filter", filterList.length);
-
         return this.sortByRating(filterList);
     }
 

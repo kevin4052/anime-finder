@@ -123,16 +123,27 @@ a {
   transition: all .3s ease-in-out;
 }
 
-.card:hover {
-  transform: scale(1.2);
-  z-index: 1;
-}
 .card-content {
   height: 100%;
 }
 
 .card-content .media {
   margin: auto;
+}
+
+#display-results:hover .card {
+  transform: translateX(-12.5%);
+}
+
+.row-container:hover .card {
+  transform: translateX(-12.5%);
+}
+.card:hover ~ .card {
+  transform: translateX(12.5%);
+}
+.card:hover {
+  transform: scale(1.25)!important;
+  z-index: 1;
 }
 
 .title.is-4 {
@@ -150,6 +161,7 @@ a {
 
 .row-container {
   display: flex;
+  height: 255px;
 }
 
 .details-box {

@@ -1,63 +1,7 @@
 import React, { Component } from 'react';
-// import AxiosService from './services/AxiosService';
 import AnimeCard from './animeCard';
 
 export default class PreviewList extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         list: this.props.cacheList[this.props.genre],
-    //         hasBeenCalled: Object.keys(this.props.cacheList).includes(this.props.genre)
-    //     }
-    //     this.axiosService = new AxiosService();
-    // }
-
-    // componentDidMount = () => {
-    //     // if (this.props.type === "top") {
-    //     //     // this.getDefaultGenre();
-    //     // } else {
-    //     //     // const genreId = this.props.genreList[this.props.genre];            
-    //     //     // this.getSelectedGenre(genreId);
-    //     // }
-    //     console.log(this.props.genre, this.props.cacheList[this.props.genre])
-    //     this.setState({
-    //         list: this.props.cacheList[this.props.genre]
-    //     })
-    // }
-
-    // sets state with the default genre of "Action"
-    // getDefaultGenre = () => {
-
-    //     this.state.hasBeenCalled 
-    //     ? this.setState({
-    //         list: this.props.cacheList.top
-    //     })
-    //     : this.axiosService
-    //             .getTopRated(1)
-    //             .then(async response => {
-    //                 await this.setState({
-    //                     list: response
-    //                 });
-    //             })
-    //             .catch(err => console.log({ err }))
-    // }
-
-    // sets state with the top 10 of a given genre
-    // getSelectedGenre = (genreId) => {
-
-    //     this.state.hasBeenCalled
-    //     ? this.setState({
-    //         list: this.props.cacheList[this.props.genre]
-    //     })
-    //     : this.axiosService
-    //             .getGenreList(genreId)
-    //             .then(async response => {
-    //                 await this.setState({
-    //                     list: response
-    //                 });
-    //             })
-    //             .catch(err => console.log({ err }))
-    // }
 
     render() {
         return (

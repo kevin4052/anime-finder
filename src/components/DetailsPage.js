@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import AxiosService from './services/AxiosService';
-// import { Link } from 'react-router-dom';
 
 export default class DetailsPage extends Component {
     constructor(props) {

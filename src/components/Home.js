@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
 import PreviewList from './PreviewList';
 import AxiosService from './services/AxiosService';
 

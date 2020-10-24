@@ -3,7 +3,6 @@ import { Link, NavLink } from 'react-router-dom';
 import AxiosService from './services/AxiosService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-// import AnimeCard from './animeCard';
 import 'bulma/css/bulma.css';
 
 export default class Navbar extends Component {
@@ -56,7 +55,6 @@ export default class Navbar extends Component {
 
 
     render() {
-        // const style = {opacity: "0"};
         return (
             <nav className="navbar is-dark">
                 <div className="nav-logo">
@@ -69,6 +67,7 @@ export default class Navbar extends Component {
                         <NavLink exact activeClassName='current-nav' to='/my-list'>My List</NavLink>
                     </div>
                 </div>
+                {/* <Search /> */}
                 <div className='nav-search'>
                     <div className='field search-input'>
                         <p className="control has-icons-left">
@@ -87,7 +86,7 @@ export default class Navbar extends Component {
                         <div className='input-results'>
                             <ul>
                                 {
-                                    this.state.searchMatches?.slice(0, 5).map(result => 
+                                    this.state.searchMatches?.slice(0, 6).map(result => 
                                         <li key={result.mal_id} onClick={this.clickSearchLink}>
                                             <Link to={`/anime/${result.mal_id}`}>{result.title}</Link>
                                         </li>
@@ -96,16 +95,6 @@ export default class Navbar extends Component {
                             </ul>
                         </div>  
                     </div>
-                    {/* <div {...this.state.searchMatches && `style=${style}`} className="display-search-results">
-                        {
-                            this.state.searchMatches?.map((anime) => 
-                                <div onClick={this.clickSearchLink}>
-                                    <AnimeCard key={anime.mal_id} title={anime.title} id={anime.mal_id} img={anime.image_url} />
-                                </div>
-                                
-                            )
-                        }
-                    </div> */}
                 </div>            
             </nav>
         );
