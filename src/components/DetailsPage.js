@@ -40,6 +40,7 @@ export default class DetailsPage extends Component {
                                         )
                                     }
                                 </div>
+                                <p>score: {this.state.anime.score}</p>
                                 <p>{this.state.anime.synopsis}</p>
                             </div>                            
                         </div>

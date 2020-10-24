@@ -9,8 +9,7 @@ export default class SearchPage extends Component {
         this.state = {
             displayList: null,
             genreCacheList: [],
-            filteredAnimeList: null,
-            selectedGenres: [],
+            currentlyChecked: [],
             cachedGenres: Object.keys(this.props.cacheList)
         }
         this.axiosService = new AxiosService();
@@ -21,24 +20,7 @@ export default class SearchPage extends Component {
             displayList: this.props.cacheList['Top']
         })
     }
-
-    // return a unique array of objects
-    siftDisplayList = (array) => {
-        const idCheckList = [];
-        let uniqueList = [];
-
-        array.forEach(anime => {
-            if (!idCheckList.includes(anime.mal_id)) {
-                idCheckList.push(anime.mal_id);
-                uniqueList.push(anime);
-            }
-        });
-
-        uniqueList.filter();
-
-        return uniqueList;
-    }
-
+    
     handleBtnClick = (event) => {
         // get the checkbox class name and splits into an array
         let checkBoxClass = event.target.parentElement.className.split(" ");        
@@ -52,42 +34,82 @@ export default class SearchPage extends Component {
         // the node list of all the checkboxes
         const checkboxChildNodes = event.target.parentElement.parentElement.childNodes;
         // creates an array of currently checked checkboxes
-        const currentlyChecked = Array.from(checkboxChildNodes).filter(ele => {
-            return ele.className.split(' ').includes('is-link') && ele;
-        });
+        const currentlyChecked = Array.from(checkboxChildNodes)
+            .filter(ele => ele.className.split(' ').includes('is-link') && ele)
+            .map(genre => genre.innerText);
 
-        // iterate through checkbox array to either make an axios call or pull from the cached list
-        // let newDisplayList = [];
-        // currentlyChecked.forEach(genre => {
-        //     newDisplayList.concat(this.props.cacheList[genre.innerText]);
-        //     console.log({[genre.innerText]: this.props.cacheList[genre.innerText]});
-        // });
+        this.setState({ currentlyChecked });
 
+        const currentlyCheckedIds = currentlyChecked.map(checkbox => this.props.genreList[checkbox]);
+        console.log({currentlyCheckedIds})
+        
         let newDisplayList = currentlyChecked?.map(genre => {
-            return this.props.cacheList[genre.innerText]
+            return this.props.cacheList[genre]
         })
 
-        this.setState({
-            displayList: this.siftDisplayList(newDisplayList.flat()).slice(0, 50)
+        const filteredList = this.siftDisplayList(newDisplayList.flat(), currentlyCheckedIds);
+        let displayList = [];
+
+        if (currentlyChecked.length === 0) {
+            displayList = this.props.cacheList['Top']
+        } else if (filteredList.length === 0) {
+            displayList = null;
+        } else {
+            displayList = filteredList
+        }
+
+        this.setState({ displayList });
+    }
+        
+    // return a unique array of objects
+    siftDisplayList = (array, selected) => {
+        const idCheckList = [];
+        let uniqueList = [];        
+
+        // create an array of unique anime objects
+        array.forEach(anime => {
+            if (!idCheckList.includes(anime.mal_id)) {
+                idCheckList.push(anime.mal_id);
+                uniqueList.push(anime);
+            }
         });
 
-        console.log({newDisplayList});
+        // filter unique array of objects for the selected genres
+        const filterList = uniqueList.filter(anime => {
+            let count = 0;
+            // an array of this animes genres
+            const animeGenres = anime.genres.map(genre => genre.mal_id);
+            for (let i = 0; i < selected.length; i++) {
+                if (animeGenres.includes(selected[i])) {
+                  count++
+                }
+            }
+            // returns anime object if all the selected genres are contained in the anime object
+            return count === selected.length;
+        });
 
+        console.log(">>>> after filter", filterList.length);
 
+        return this.sortByRating(filterList);
+    }
+
+    sortByRating = (array) => {
+        return array.sort((a, b) => b.score - a.score);
     }
 
     render() {
-        const displayList = this.props.searchResults || this.state.displayList;
+        const displayList = this.state.displayList
+        console.log({displayList})
         return (
             <div className="home-container">
                 <div id='search-container'>
                     <div id="filter-container">
-                        <h2>Search Page</h2>
+                        <h2>Genres</h2>
                         <div className="control genre-btns">
                             {
                                 Object.keys(this.props.genreList)?.map(genreName =>
                                     <label key={genreName} className="button checkbox">
-                                        <input type='checkbox' name='genreBtn' onClick={this.handleBtnClick}/>
+                                        <input type='checkbox' name='genreBtn' className="hide-checkbox" onClick={this.handleBtnClick}/>
                                         {genreName}
                                     </label>
                                 )
@@ -95,11 +117,20 @@ export default class SearchPage extends Component {
                         </div>
                     </div>
                     <div id="search-result-container">
-                        {
-                            displayList?.map((anime) => 
-                                <AnimeCard key={anime.mal_id} title={anime.title} id={anime.mal_id} img={anime.image_url} />
-                            )
-                        }
+                        <div id='display-search-genres'>
+                            {
+                                this.state.currentlyChecked.length 
+                                ? this.state.currentlyChecked.map(checkedGenre => <span key={checkedGenre}>{checkedGenre}</span>)
+                                : <span>Top</span>
+                            }
+                        </div>
+                        <div id='display-results'>
+                            {
+                                displayList?.map((anime) => 
+                                    <AnimeCard key={anime.mal_id} title={anime.title} id={anime.mal_id} img={anime.image_url} />
+                                )
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
