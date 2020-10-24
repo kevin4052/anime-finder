@@ -3,7 +3,7 @@ import axios from 'axios';
 export default class AxiosService {
     constructor() {
         this.apiService = axios.create({
-            baseURL: process.env.REACT_APP_API_URL
+            baseURL: `https://api.jikan.moe/v3`
         });
     }
 

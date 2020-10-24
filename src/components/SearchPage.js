@@ -23,7 +23,7 @@ export default class SearchPage extends Component {
     }
 
     // return a unique array of objects
-    cleanDisplayList = (array) => {
+    siftDisplayList = (array) => {
         const idCheckList = [];
         let uniqueList = [];
 
@@ -33,6 +33,8 @@ export default class SearchPage extends Component {
                 uniqueList.push(anime);
             }
         });
+
+        uniqueList.filter();
 
         return uniqueList;
     }
@@ -66,15 +68,13 @@ export default class SearchPage extends Component {
         })
 
         this.setState({
-            displayList: this.cleanDisplayList(newDisplayList.flat())
+            displayList: this.siftDisplayList(newDisplayList.flat()).slice(0, 50)
         });
 
         console.log({newDisplayList});
 
 
     }
-
-    updateBtnStatus = () => {}
 
     render() {
         const displayList = this.props.searchResults || this.state.displayList;
