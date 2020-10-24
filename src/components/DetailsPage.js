@@ -6,13 +6,14 @@ export default class DetailsPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            anime: null
+            anime: null,
+            isFav: false
         };
         this.axiosService = new AxiosService();
     }
 
-    componentDidMount = () => {
-        this.axiosService
+    componentDidMount = async () => {
+        await this.axiosService
             .getOneAnime(this.props.match.params.id)
             .then(response => {
                 this.setState({
@@ -20,6 +21,20 @@ export default class DetailsPage extends Component {
                 });
             })
             .catch(err => console.log({ err }));
+
+        this.props.favorites.forEach(anime => {
+            if (anime.mal_id === this.state.anime.mal_id) {
+                this.setState({ isFav: true })
+            }
+        })
+    }
+
+    addToFavorites = async () => {
+        await this.setState((preState) => ({
+            isFav: !preState.isFav
+        }));
+
+        this.props.addToFavorites(this.state.anime, this.state.isFav)
     }
 
     render() {
@@ -42,7 +57,14 @@ export default class DetailsPage extends Component {
                                 </div>
                                 <p>score: {this.state.anime.score}</p>
                                 <p>{this.state.anime.synopsis}</p>
-                            </div>                            
+                                <br/>
+                                {
+                                    this.state.isFav
+                                    ? <button className='button' onClick={this.addToFavorites}>Remove from Favorites</button>
+                                    : <button className='button' onClick={this.addToFavorites}>Add to Favorites</button>
+                                }
+                            </div>
+                                                    
                         </div>
                 }
             </div>

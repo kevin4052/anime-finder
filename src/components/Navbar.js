@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import AxiosService from './services/AxiosService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+// import AnimeCard from './animeCard';
 import 'bulma/css/bulma.css';
 
 export default class Navbar extends Component {
@@ -16,7 +17,6 @@ export default class Navbar extends Component {
     }
 
     handleChange = async (event) => {
-        // console.log(event.target);
         const { value } = event.target;
         await this.setState({
             search: value
@@ -38,14 +38,12 @@ export default class Navbar extends Component {
                             }
                         })
                     })
-                    this.props.submitSearch(this.state.searchMatches);
                 })
                 .catch(err => console.log({ err }));
         } else {
             await this.setState({
                 searchMatches: null
             });
-            this.props.submitSearch(this.state.searchMatches);
         }
     }
 
@@ -58,6 +56,7 @@ export default class Navbar extends Component {
 
 
     render() {
+        // const style = {opacity: "0"};
         return (
             <nav className="navbar is-dark">
                 <div className="nav-logo">
@@ -95,8 +94,18 @@ export default class Navbar extends Component {
                                     )
                                 }
                             </ul>
-                        </div>
+                        </div>  
                     </div>
+                    {/* <div {...this.state.searchMatches && `style=${style}`} className="display-search-results">
+                        {
+                            this.state.searchMatches?.map((anime) => 
+                                <div onClick={this.clickSearchLink}>
+                                    <AnimeCard key={anime.mal_id} title={anime.title} id={anime.mal_id} img={anime.image_url} />
+                                </div>
+                                
+                            )
+                        }
+                    </div> */}
                 </div>            
             </nav>
         );

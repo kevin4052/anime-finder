@@ -65,7 +65,6 @@ class App extends Component {
         await this.axiosService
           .getGenreList(this.genre[genre])
           .then(response => {
-
             this.setState((preState) => ({
               cacheList: Object.assign(preState.cacheList, {[genre]: response})
             }));
@@ -77,10 +76,23 @@ class App extends Component {
     console.log({cacheList: this.state.cacheList})
   }
 
-  handleSearchResults = (searchResults) => {
-    this.setState({
-      searchResults
-    })
+  addToFavorites = (anime, isNew) => {
+    const favs = this.state.favorites;
+
+    if (isNew) {
+      this.setState((preState) => ({
+        favorites: preState.favorites.concat(anime)
+      }))
+    } else {
+      const newFavs = favs.filter(fav => {
+        return (fav.mal_id !== anime.mal_id)
+      })
+
+      this.setState(() => ({
+        favorites: newFavs
+      }))
+    }
+    
   }
 
   render() {
@@ -99,21 +111,23 @@ class App extends Component {
 
           <Route exact path='/search' render={(props) => 
               <SearchPage 
-                {...props} 
-                searchResults={this.state.searchResults} 
+                {...props}
                 genreList={this.genre}
                 handleUserList={this.handleUserList}
                 cacheList={this.state.cacheList} />} />
 
           <Route exact path='/anime/:id' render={(props) => 
               <DetailsPage 
-                {...props} 
+                {...props}
+                addToFavorites={this.addToFavorites}
+                favorites={this.state.favorites}
                 cacheList={this.state.cacheList}/>} />
               
           <Route exact path='/my-list' render={(props) => 
               <MyList 
                 {...props} 
-                cacheList={this.state.cacheList}/> }/>
+                favorites={this.state.favorites}
+                /> }/>
         </Switch>
 
       </div>
