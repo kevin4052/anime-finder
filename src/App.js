@@ -53,7 +53,6 @@ class App extends Component {
     await this.axiosService
       .getTopRated(1)
       .then(response => {
-
         this.setState((preState) => ({
           cacheList: Object.assign(preState.cacheList, {Top: response})
         }));
@@ -61,8 +60,8 @@ class App extends Component {
       });
 
     Object.keys(this.genre).forEach(async genre => {
-      setTimeout(async () => {
-        await this.axiosService
+      setTimeout(() => {
+        this.axiosService
           .getGenreList(this.genre[genre])
           .then(response => {
             this.setState((preState) => ({
@@ -70,16 +69,24 @@ class App extends Component {
             }));
 
           })
-        }, 2000)
+        }, 4000)
       });
 
-    console.log({cacheList: this.state.cacheList})
+    // console.log({cacheList: this.state.cacheList})
+    // console.log(Object.keys(this.state.cacheList).length)
   }
 
-  addToFavorites = (anime, isNew) => {
+  addToFavorites = async (id, isFav) => {
+    console.log("app.js", id, isFav)
+    let anime;
     const favs = this.state.favorites;
 
-    if (isNew) {
+    await this.axiosService
+            .getOneAnime(id)
+            .then(response => anime = response)
+            .catch(err => console.log({ err }));    
+
+    if (isFav) {
       this.setState((preState) => ({
         favorites: preState.favorites.concat(anime)
       }))
@@ -103,7 +110,9 @@ class App extends Component {
         <Switch>
           <Route exact path='/' render={(props) => 
               <Home 
-                {...props} 
+                {...props}
+                addToFavorites={this.addToFavorites}
+                favorites={this.state.favorites}
                 genreList={Object.keys(this.state.cacheList)} 
                 homePageGenres={this.state.homePageGenres} 
                 cacheList={this.state.cacheList} />} />
@@ -112,6 +121,8 @@ class App extends Component {
           <Route exact path='/search' render={(props) => 
               <SearchPage 
                 {...props}
+                addToFavorites={this.addToFavorites}
+                favorites={this.state.favorites}
                 genreList={this.genre}
                 handleUserList={this.handleUserList}
                 cacheList={this.state.cacheList} />} />
@@ -125,7 +136,8 @@ class App extends Component {
               
           <Route exact path='/my-list' render={(props) => 
               <MyList 
-                {...props} 
+                {...props}
+                addToFavorites={this.addToFavorites}
                 favorites={this.state.favorites}
                 /> }/>
         </Switch>

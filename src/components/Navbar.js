@@ -56,7 +56,7 @@ export default class Navbar extends Component {
 
     render() {
         return (
-            <nav className="navbar is-dark">
+            <nav className="nav-bar">
                 <div className="nav-logo">
                     <NavLink to='/' >
                         <img className="app-logo" src='./images/animeFinderLogo.png' alt='site-logo' />

@@ -1,7 +1,7 @@
 body, html {
   margin: 0;
   padding: 0;
-  background-color: #363636;
+  background-color: #141414;
   color: #fff;
   font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
 }
@@ -50,13 +50,16 @@ a {
   margin: 0 auto;
 }
 
-.navbar {
+.nav-bar {
   position: sticky;
+  display: flex;
+  background-color: #141414;
   top: 0;
   width: 100%;
   border-bottom: 1px solid white;
   justify-content: space-between;
   align-items: center;
+  z-index: 10;
 }
 
 .display-search-results {
@@ -67,13 +70,12 @@ a {
   right: 3vw;
   top: 104px;
   padding-top: 15px;
-  background-color: #363636;
+  background-color: #141414;
 }
 
 .app-logo {
   margin: 1rem 0 1rem 5vw;
-  min-width: 200px;
-  max-width: 300px;
+  max-width: 200px;
 }
 
 .nav-logo {
@@ -117,6 +119,7 @@ a {
 }
 
 .card {
+  position: relative;
   width: 170px;
   height: 255px;
   margin: 0 0.25rem;
@@ -131,8 +134,20 @@ a {
   margin: auto;
 }
 
-#display-results:hover .card {
-  transform: translateX(-12.5%);
+.fav-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: flex;
+  font-size: xxx-large;
+  color: green;
+  visibility: hidden;
+  transition: all .3s ease-in-out;
+}
+
+.fav-btn:hover {
+  transform: scale(1.15);
+  cursor: pointer;
 }
 
 .row-container:hover .card {
@@ -144,6 +159,10 @@ a {
 .card:hover {
   transform: scale(1.25)!important;
   z-index: 1;
+}
+
+.card:hover .fav-btn {
+  visibility: visible;
 }
 
 .title.is-4 {

@@ -95,6 +95,11 @@ export default class SearchPage extends Component {
         return array.sort((a, b) => b.score - a.score);
     }
 
+    addToFavorites = (id, isFav) => {
+        this.props.addToFavorites(id, isFav);
+        console.log('search page', id)
+    }
+
     render() {
         const displayList = this.state.displayList
         console.log({displayList})
@@ -125,7 +130,13 @@ export default class SearchPage extends Component {
                         <div id='display-results'>
                             {
                                 displayList?.map((anime) => 
-                                    <AnimeCard key={anime.mal_id} title={anime.title} id={anime.mal_id} img={anime.image_url} />
+                                    <AnimeCard 
+                                        key={anime.mal_id} 
+                                        title={anime.title} 
+                                        id={anime.mal_id} 
+                                        img={anime.image_url}
+                                        addToFavorites={this.addToFavorites}
+                                        favorites={this.props.favorites} />
                                 )
                             }
                         </div>

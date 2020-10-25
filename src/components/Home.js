@@ -11,10 +11,17 @@ class Home extends Component {
 
   componentDidMount = () => {}
 
+  addToFavorites = (id, isFav) => {
+    console.log('home', id)
+    this.props.addToFavorites(id, isFav);
+  }
+
   render() {
     return (
       <div className="home-container is-dark">
-        <PreviewList 
+        <PreviewList
+          addToFavorites={this.addToFavorites}
+          favorites={this.props.favorites}
           genreList={this.props.genreList} 
           cacheList={this.props.cacheList} 
           type='top'
@@ -24,6 +31,8 @@ class Home extends Component {
           this.props.homePageGenres?.map(ele => 
             <PreviewList 
               key={ele} 
+              addToFavorites={this.addToFavorites}
+              favorites={this.props.favorites}
               genreList={this.props.genreList} 
               cacheList={this.props.cacheList} 
               type='genre' 

@@ -33,7 +33,7 @@ export default class DetailsPage extends Component {
             isFav: !preState.isFav
         }));
 
-        this.props.addToFavorites(this.state.anime, this.state.isFav)
+        this.props.addToFavorites(this.state.anime.mal_id, this.state.isFav)
     }
 
     render() {
