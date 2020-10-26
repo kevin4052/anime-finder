@@ -3,6 +3,8 @@ import { Link, NavLink } from 'react-router-dom';
 import AxiosService from './services/AxiosService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import 'bulma/css/bulma.css';
 
 export default class Navbar extends Component {
@@ -69,6 +71,12 @@ export default class Navbar extends Component {
                 </div>
                 {/* <Search /> */}
                 <div className='nav-search'>
+                    <a href="https://github.com/kevin4052/anime-finder" target="_blank" rel="noopener noreferrer">
+                        <FontAwesomeIcon icon={faGithub} />
+                    </a>
+                    <a href="https://www.linkedin.com/in/kevin-hernandez-1b571389" target="_blank" rel="noopener noreferrer">
+                        <FontAwesomeIcon icon={faLinkedin} />
+                    </a>                    
                     <div className='field search-input'>
                         <p className="control has-icons-left">
                             <input 

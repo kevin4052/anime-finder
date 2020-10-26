@@ -5,7 +5,7 @@ import Home from './components/Home';
 import DetailsPage from './components/DetailsPage';
 import SearchPage from './components/SearchPage';
 import MyList from './components/MyList';
-import AxiosService from './components/services/AxiosService'
+import AxiosService from './components/services/AxiosService';
 import './App.css';
 
 class App extends Component {
@@ -76,7 +76,6 @@ class App extends Component {
   }
 
   addToFavorites = async (id, isFav) => {
-    console.log("app.js", id, isFav)
     let anime;
     const favs = this.state.favorites;
 
@@ -140,7 +139,6 @@ class App extends Component {
                 favorites={this.state.favorites}
                 /> }/>
         </Switch>
-
       </div>
     );
   }
