@@ -59,8 +59,8 @@ class App extends Component {
 
       });
 
-    Object.keys(this.genre).forEach(async genre => {
-      setTimeout(() => {
+    Object.keys(this.genre).forEach((genre, index) => {
+      const getAllGenres = setInterval(() => {
         this.axiosService
           .getGenreList(this.genre[genre])
           .then(response => {
@@ -69,7 +69,9 @@ class App extends Component {
             }));
 
           })
-        }, 4000)
+        }, 1000)
+
+        if (index === Object.keys(this.genre).length - 1) clearInterval(getAllGenres);
       });
   }
 

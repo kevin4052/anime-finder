@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import AnimeCard from './animeCard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
-// import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 export default class PreviewList extends Component {
     state = {

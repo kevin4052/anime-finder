@@ -41,7 +41,6 @@ export default class SearchPage extends Component {
         this.setState({ currentlyChecked });
 
         const currentlyCheckedIds = currentlyChecked.map(checkbox => this.props.genreList[checkbox]);
-        console.log({currentlyCheckedIds})
         
         let newDisplayList = currentlyChecked?.map(genre => {
             return this.props.cacheList[genre]
@@ -97,12 +96,11 @@ export default class SearchPage extends Component {
 
     addToFavorites = (id, isFav) => {
         this.props.addToFavorites(id, isFav);
-        console.log('search page', id)
     }
 
     render() {
-        const displayList = this.state.displayList
-        console.log({displayList})
+        const displayList = this.state.displayList;
+        
         return (
             <div className="home-container">
                 <div id='search-container'>
