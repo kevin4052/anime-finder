@@ -99,7 +99,7 @@ export default class SearchPage extends Component {
     }
 
     render() {
-        const displayList = this.state.displayList;
+        const { displayList } = this.state;
         
         return (
             <div className="home-container">
@@ -124,10 +124,11 @@ export default class SearchPage extends Component {
                                 ? this.state.currentlyChecked.map(checkedGenre => <span key={checkedGenre}>{checkedGenre}</span>)
                                 : <span>Top</span>
                             }
-                        </div>
+                        </div><br/>
                         <div id='display-results'>
                             {
-                                displayList?.map((anime) => 
+                                displayList
+                                ? displayList.map((anime) => 
                                     <AnimeCard 
                                         key={anime.mal_id} 
                                         title={anime.title} 
@@ -136,6 +137,7 @@ export default class SearchPage extends Component {
                                         addToFavorites={this.addToFavorites}
                                         favorites={this.props.favorites} />
                                 )
+                                : <h3>Sorry, there are no results</h3>
                             }
                         </div>
                     </div>
