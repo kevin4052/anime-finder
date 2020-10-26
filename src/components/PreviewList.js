@@ -18,8 +18,6 @@ export default class PreviewList extends Component {
         const slider = Object.values(event.target.parentElement.children[0].getClientRects())[0];
         const rowContainerEnd = rowContainer.x + rowContainer.width;
         const sliderEnd = slider.x + slider.width;
-        // console.log('rowContainerEnd', rowContainerEnd);
-        // console.log('sliderEnd', sliderEnd);
 
         if (sliderEnd - rowContainerEnd >= 1410) {
             this.setState((preState) => ({

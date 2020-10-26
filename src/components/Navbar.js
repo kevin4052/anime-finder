@@ -69,7 +69,6 @@ export default class Navbar extends Component {
                         <NavLink exact activeClassName='current-nav' to='/my-list'>My List</NavLink>
                     </div>
                 </div>
-                {/* <Search /> */}
                 <div className='nav-search'>
                     <a href="https://github.com/kevin4052/anime-finder" target="_blank" rel="noopener noreferrer">
                         <FontAwesomeIcon icon={faGithub} />

@@ -9,8 +9,6 @@ class Home extends Component {
     this.axiosService = new AxiosService();
   }
 
-  componentDidMount = () => {}
-
   addToFavorites = (id, isFav) => {
     this.props.addToFavorites(id, isFav);
   }

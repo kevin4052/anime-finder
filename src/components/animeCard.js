@@ -32,8 +32,7 @@ export default function animeCard({ id, title, img, addToFavorites, favorites}) 
                     isFav 
                     ? <FontAwesomeIcon style={{color: "red"}} icon={faMinus}/>
                     : <FontAwesomeIcon style={{color: "green"}} icon={faPlus}/>
-                }
-                
+                }                
             </div>
         </div>
     )
