@@ -71,9 +71,6 @@ class App extends Component {
           })
         }, 4000)
       });
-
-    // console.log({cacheList: this.state.cacheList})
-    // console.log(Object.keys(this.state.cacheList).length)
   }
 
   addToFavorites = async (id, isFav) => {

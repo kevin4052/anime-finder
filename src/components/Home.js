@@ -12,7 +12,6 @@ class Home extends Component {
   componentDidMount = () => {}
 
   addToFavorites = (id, isFav) => {
-    console.log('home', id)
     this.props.addToFavorites(id, isFav);
   }
 

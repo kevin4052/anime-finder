@@ -1,12 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faMinus } from '@fortawesome/free-solid-svg-icons';
 
 export default function animeCard({ id, title, img, addToFavorites, favorites}) {
     let isFav = false;
-    // console.log({favorites})
 
     if (favorites.length) {
         for (let i = 0; i < favorites.length; i++) {
@@ -16,7 +15,6 @@ export default function animeCard({ id, title, img, addToFavorites, favorites}) 
 
     const favBtnHandler = () => {
         isFav = !isFav;
-        console.log('card', id)
         addToFavorites(id, isFav);
     }
 
@@ -32,8 +30,8 @@ export default function animeCard({ id, title, img, addToFavorites, favorites}) 
             <div className='fav-btn' onClick={() => favBtnHandler()}>
                 {
                     isFav 
-                    ? <FontAwesomeIcon style={{color: "red"}} icon={faMinusCircle}/>
-                    : <FontAwesomeIcon style={{color: "green"}} icon={faPlusCircle}/>
+                    ? <FontAwesomeIcon style={{color: "red"}} icon={faMinus}/>
+                    : <FontAwesomeIcon style={{color: "green"}} icon={faPlus}/>
                 }
                 
             </div>
