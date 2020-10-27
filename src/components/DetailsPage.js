@@ -28,6 +28,10 @@ export default class DetailsPage extends Component {
         })
     }
 
+    componentDidUpdate = () => {
+        this.componentDidMount();
+    }
+
     addToFavorites = async () => {
         await this.setState((preState) => ({
             isFav: !preState.isFav
