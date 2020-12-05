@@ -3,7 +3,8 @@ import axios from 'axios';
 export default class AxiosService {
     constructor() {
         this.apiService = axios.create({
-            baseURL: `https://api.jikan.moe/v3`
+            baseURL: `https://api.jikan.moe/v3`,
+            // withCredentials: true
         });
     }
 

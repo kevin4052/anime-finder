@@ -69,7 +69,7 @@ class App extends Component {
             }));
 
           })
-        }, 1000)
+        }, 4000)
 
         if (index === Object.keys(this.genre).length - 1) clearInterval(getAllGenres);
       });
