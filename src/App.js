@@ -6,6 +6,7 @@ import DetailsPage from './components/DetailsPage';
 import SearchPage from './components/SearchPage';
 import MyList from './components/MyList';
 import AxiosService from './components/services/AxiosService';
+import Loading from './components/Loading';
 import './App.css';
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
       cacheList: {},
       favorites: [],
       searchResults: null,
+      loading: true,
       homePageGenres: ['Parody', 'Shounen', 'Fantasy', 'Psychological', 'Slice-Of-Life', 'Romance']
     }
     this.axiosService = new AxiosService();
@@ -71,7 +73,10 @@ class App extends Component {
           })
         }, 4000)
 
-        if (index === Object.keys(this.genre).length - 1) clearInterval(getAllGenres);
+        if (index === Object.keys(this.genre).length - 1) {
+          clearInterval(getAllGenres);
+          this.setState({ loading: false});
+        };
       });
   }
 
@@ -107,14 +112,17 @@ class App extends Component {
 
         <Switch>
           <Route exact path='/' render={(props) => 
-              <Home 
-                {...props}
-                addToFavorites={this.addToFavorites}
-                favorites={this.state.favorites}
-                genreList={Object.keys(this.state.cacheList)} 
-                homePageGenres={this.state.homePageGenres} 
-                cacheList={this.state.cacheList} />} />
-                  
+              this.state.loading
+              ? <Loading />
+              : <Home 
+                  {...props}
+                  addToFavorites={this.addToFavorites}
+                  favorites={this.state.favorites}
+                  genreList={Object.keys(this.state.cacheList)} 
+                  homePageGenres={this.state.homePageGenres} 
+                  cacheList={this.state.cacheList} />} />
+                    
+              
 
           <Route exact path='/search' render={(props) => 
               <SearchPage 
