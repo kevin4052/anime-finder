@@ -6,6 +6,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import 'bulma/css/bulma.css';
+import 'fontsource-roboto';
 
 export default class Navbar extends Component {
     constructor() {

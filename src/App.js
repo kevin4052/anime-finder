@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import AppBar from './components/AppBar'
 import Home from './components/Home';
 import DetailsPage from './components/DetailsPage';
 import SearchPage from './components/SearchPage';
@@ -109,6 +110,7 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar submitSearch={this.handleSearchResults} />
+        <AppBar />
 
         <Switch>
           <Route exact path='/' render={(props) => 
