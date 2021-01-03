@@ -110,7 +110,7 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar submitSearch={this.handleSearchResults} />
-        <AppBar />
+        {/* <AppBar /> */}
 
         <Switch>
           <Route exact path='/' render={(props) => 

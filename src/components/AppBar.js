@@ -8,10 +8,10 @@ import InputBase from '@material-ui/core/InputBase';
 import { createMuiTheme, fade, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faSearch } from '@fortawesome/free-solid-svg-icons';
+// import { faGithub } from '@fortawesome/free-brands-svg-icons';
+// import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 const theme = createMuiTheme({
     palette: {
@@ -78,7 +78,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchAppBar() {
   const classes = useStyles();
-//   const redTheme = theme();
 
   return (
     <div className={classes.root}>
